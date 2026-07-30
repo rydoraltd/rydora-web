@@ -1,0 +1,20 @@
+/* Rydora dashboard tokens. Retheme the entire dashboard from this block. */
+:root {
+  --rd-primary: #0E5A43;
+  --rd-primary-strong: #0A4534;
+  --rd-accent: #E8A33D;
+
+  --rd-surface: #F7F7F5;
+  --rd-panel: #FFFFFF;
+  --rd-inverse: #101418;
+
+  --rd-ink: #14181D;
+  --rd-ink-body: #3D434C;
+  --rd-ink-muted: #7A828D;
+  --rd-ink-on-dark: #F2F3F1;
+
+  --rd-line: #E3E5E2;
+  --rd-success: #1D7A4F;
+  --rd-warning: #C77A1E;
+  --rd-error: #B3403A;
+}
