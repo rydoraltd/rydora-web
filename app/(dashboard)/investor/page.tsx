@@ -85,8 +85,8 @@ export default function InvestorPage() {
       {/* Payout request */}
       {available > 0 && (
         <div className="mt-6 border border-[var(--rd-line)] bg-[var(--rd-panel)] p-5">
-          <div className="flex items-center justify-between">
-            <div>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="min-w-0">
               <p className="text-sm font-medium text-[var(--rd-ink)]">Request a payout</p>
               <p className="text-xs text-[var(--rd-ink-muted)] mt-0.5">
                 {naira(available)} available. Payouts are processed within 2 business days after admin approval.
@@ -185,22 +185,22 @@ export default function InvestorPage() {
             <Link
               key={v._id}
               href={`/investor/statements/${v._id}`}
-              className="border border-[var(--rd-line)] bg-[var(--rd-panel)] p-5 flex items-center justify-between hover:border-[var(--rd-primary)]"
+              className="border border-[var(--rd-line)] bg-[var(--rd-panel)] p-5 flex items-center justify-between gap-4 hover:border-[var(--rd-primary)]"
             >
-              <div>
-                <p className="font-medium text-[var(--rd-ink)]">
+              <div className="min-w-0">
+                <p className="font-medium text-[var(--rd-ink)] truncate">
                   {v.make} {v.model} {v.year}
                 </p>
                 <p className="text-xs text-[var(--rd-ink-muted)] mt-1 font-mono">
                   {v.plateNumber}
                 </p>
-                <p className="text-xs text-[var(--rd-ink-muted)] mt-1">
+                <p className="text-xs text-[var(--rd-ink-muted)] mt-1 truncate">
                   {v.assignedDriver
                     ? `Driven by ${v.assignedDriver.firstName} ${v.assignedDriver.lastName}`
                     : "Awaiting driver"}
                 </p>
               </div>
-              <div className="text-right">
+              <div className="text-right shrink-0">
                 <p className="text-lg font-semibold tabular-nums">
                   {naira(earningsMap.get(v._id) ?? 0)}
                 </p>

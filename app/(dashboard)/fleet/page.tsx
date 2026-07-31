@@ -184,15 +184,18 @@ export default function FleetPage() {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-6">
-        <PageHeader title="Vehicles" description="The single registry every vehicle lives in." />
-        <button
-          onClick={() => { setShowForm((v) => !v); setFormError(null); }}
-          className="px-4 py-2 text-sm font-medium bg-[var(--rd-primary)] text-[var(--rd-ink-on-dark)] hover:bg-[var(--rd-primary-strong)]"
-        >
-          {showForm ? "Cancel" : "+ Add vehicle"}
-        </button>
-      </div>
+      <PageHeader
+        title="Vehicles"
+        description="The single registry every vehicle lives in."
+        action={
+          <button
+            onClick={() => { setShowForm((v) => !v); setFormError(null); }}
+            className="px-4 py-2 text-sm font-medium bg-[var(--rd-primary)] text-[var(--rd-ink-on-dark)] hover:bg-[var(--rd-primary-strong)]"
+          >
+            {showForm ? "Cancel" : "+ Add vehicle"}
+          </button>
+        }
+      />
 
       {showForm && (
         <form
@@ -268,7 +271,7 @@ export default function FleetPage() {
         </p>
       ) : (
         <div className="border border-[var(--rd-line)] bg-[var(--rd-panel)] overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="min-w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--rd-line)]">
                 {["Vehicle", "Plate", "Status", "Driver", "Investor", "Weekly target", "Funding", "Actions"].map((h) => (

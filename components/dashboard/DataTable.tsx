@@ -14,7 +14,7 @@ export function DataTable<T extends { _id?: string }>({ columns, rows, emptyText
 }) {
   return (
     <div className="border border-[var(--rd-line)] bg-[var(--rd-panel)] overflow-x-auto">
-      <table className="w-full text-sm">
+      <table className="min-w-full text-sm">
         <thead>
           <tr className="border-b border-[var(--rd-line)]">
             {columns.map((c) => (
