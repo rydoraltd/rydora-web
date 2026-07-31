@@ -40,7 +40,7 @@ function RegisterForm() {
       const json = await res.json();
       if (!res.ok || json.success === false)
         throw new Error(json.message || "Registration failed");
-      router.push(`/verify?phone=${encodeURIComponent(form.phone)}`);
+      router.push(`/verify?email=${encodeURIComponent(form.email)}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
     } finally {
@@ -146,7 +146,7 @@ function RegisterForm() {
               className="mt-1 w-full border border-[var(--rd-line)] px-3 py-2 text-sm bg-[var(--rd-panel)] text-[var(--rd-ink)] focus:outline-none focus:border-[var(--rd-primary)]"
             />
             <span className="text-[11px] text-[var(--rd-ink-muted)] mt-1 block">
-              We will send a verification code to this number.
+              Used for your account profile.
             </span>
           </label>
 

@@ -9,7 +9,7 @@ const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 function VerifyForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const phone = params.get("phone") ?? "";
+  const email = params.get("email") ?? "";
 
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -21,10 +21,10 @@ function VerifyForm() {
     setBusy(true);
     setError(null);
     try {
-      const res = await fetch(`${API}/auth/verify-phone`, {
+      const res = await fetch(`${API}/auth/verify-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone, code }),
+        body: JSON.stringify({ email, code }),
       });
       const json = await res.json();
       if (!res.ok || json.success === false)
@@ -49,7 +49,7 @@ function VerifyForm() {
               <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <h1 className="text-lg font-semibold text-[var(--rd-ink)]">Phone verified</h1>
+          <h1 className="text-lg font-semibold text-[var(--rd-ink)]">Email verified</h1>
           <p className="mt-3 text-sm text-[var(--rd-ink-muted)] leading-relaxed">
             Your account is now under review. The Rydora team will approve it
             within 48 hours and you will be notified.
@@ -79,10 +79,10 @@ function VerifyForm() {
         <Link href="/" className="font-semibold tracking-tight text-lg text-[var(--rd-ink)]">
           RYDORA
         </Link>
-        <h1 className="mt-6 text-lg font-medium text-[var(--rd-ink)]">Verify your phone</h1>
+        <h1 className="mt-6 text-lg font-medium text-[var(--rd-ink)]">Verify your email</h1>
         <p className="text-sm text-[var(--rd-ink-muted)] mt-1 leading-relaxed">
           We sent a 6-digit code to{" "}
-          <span className="font-medium text-[var(--rd-ink)]">{phone || "your phone"}</span>.
+          <span className="font-medium text-[var(--rd-ink)]">{email || "your email"}</span>.
           Enter it below.
         </p>
 
@@ -111,7 +111,7 @@ function VerifyForm() {
             disabled={busy || code.length !== 6}
             className="w-full bg-[var(--rd-primary)] text-[var(--rd-ink-on-dark)] py-2.5 text-sm font-medium hover:bg-[var(--rd-primary-strong)] disabled:opacity-50"
           >
-            {busy ? "Verifying…" : "Verify phone"}
+            {busy ? "Verifying…" : "Verify email"}
           </button>
 
           <p className="text-xs text-[var(--rd-ink-muted)]">
