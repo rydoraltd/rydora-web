@@ -70,7 +70,7 @@ export default function InvestorsPage() {
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1920&q=85"
+            src="https://images.unsplash.com/photo-1714703394111-a4ef8bfc750f?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="A clean professional sedan on a city road"
             fill
             priority

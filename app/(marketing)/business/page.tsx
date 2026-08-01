@@ -61,7 +61,7 @@ export default function BusinessPage() {
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1920&q=85"
+            src="https://images.unsplash.com/photo-1638133244872-0ca7a7cf1609?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Aerial view of a busy highway interchange at night"
             fill
             priority
