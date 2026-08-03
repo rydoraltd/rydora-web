@@ -55,7 +55,7 @@ export default function DriversPage() {
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1920&q=85"
+            src="https://images.unsplash.com/photo-1627384011575-8e7d934f3d23?q=80&w=1175&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="A professional driver behind the wheel of a clean vehicle at dusk"
             fill
             priority

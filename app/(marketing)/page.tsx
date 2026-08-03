@@ -51,126 +51,65 @@ export default function HomePage() {
       {/* ─── 1. HERO ──────────────────────────────────────────────── */}
       <section
         id="hero"
-        className="relative min-h-screen flex items-center overflow-hidden"
+        className="relative min-h-[70vh] sm:min-h-screen flex items-center justify-center overflow-hidden"
         aria-label="Rydora hero"
-        style={{ backgroundColor: "var(--surface-base)" }}
+        style={{ backgroundColor: "var(--surface-inverse)" }}
       >
-        {/* RIGHT — image pinned absolutely to the section, right half only.
-            Kept outside the content grid so it never affects layout flow. */}
-        <div
-          className="absolute top-0 bottom-0 right-0 w-1/2 hidden lg:block"
-          aria-hidden="true"
-        >
+        {/* Full-bleed background */}
+        <div className="absolute inset-0" aria-hidden="true">
           <Image
-            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=90"
+            src="https://images.unsplash.com/photo-1616805111699-0e52fa62f779?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
             fill
             priority
             className="object-cover object-center"
-            sizes="50vw"
+            sizes="100vw"
           />
-          {/* Fade left edge into page background */}
+          <div className="absolute inset-0" style={{ background: "rgba(16,20,24,0.60)" }} />
           <div
             className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to right, var(--surface-base) 0%, transparent 40%)",
-            }}
-          />
-          {/* Fade bottom edge */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to top, var(--surface-base) 0%, transparent 20%)",
-            }}
+            style={{ background: "linear-gradient(to bottom, rgba(16,20,24,0.1) 0%, rgba(16,20,24,0.55) 100%)" }}
           />
         </div>
 
-        {/* LEFT — content, constrained to left half on desktop */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 py-32">
-          <div className="max-w-lg">
-            <p
-              className="text-xs font-semibold uppercase tracking-[0.2em] mb-6"
-              style={{ fontFamily: "var(--font-data)", color: "var(--brand-primary)" }}
-            >
-              Rydora · Mobility Management
-            </p>
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-5 sm:px-8 text-center pt-16">
+          <h1
+            className="anim-fade-up font-black tracking-tight"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontVariationSettings: "'opsz' 72, 'SOFT' 0, 'WONK' 0",
+              fontSize: "clamp(2.25rem, 5vw + 1rem, 5.5rem)",
+              lineHeight: "1.05",
+              color: "var(--ink-on-dark)",
+            }}
+          >
+            Professionally driven.{" "}
+            <span style={{ color: "var(--brand-accent)" }}>Fully&nbsp;visible.</span>
+          </h1>
 
-            <h1
-              className="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.06] tracking-tight mb-6"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontVariationSettings: "'opsz' 64, 'SOFT' 0, 'WONK' 0",
-                color: "var(--ink-strong)",
-              }}
-            >
-              Professionally
-              <br />driven.{" "}
-              <span style={{ color: "var(--brand-primary)" }}>
-                Fully&nbsp;visible.
-              </span>
-            </h1>
+          <p
+            className="anim-fade-up anim-delay-1 mt-6 text-base sm:text-lg leading-relaxed max-w-xl mx-auto"
+            style={{ fontFamily: "var(--font-body)", color: "rgba(242,243,241,0.65)" }}
+          >
+            Vetted drivers. Every trip tracked. Every naira accounted for and paid out automatically.
+          </p>
 
-            <p
-              className="text-base lg:text-lg leading-relaxed mb-10"
-              style={{ fontFamily: "var(--font-body)", color: "var(--ink-body)" }}
+          <div className="anim-fade-up anim-delay-2 mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link
+              href="/register?role=investor"
+              className="w-full sm:w-auto flex items-center justify-center px-8 py-3.5 text-sm font-semibold transition-opacity duration-200 hover:opacity-90 cursor-pointer"
+              style={{ fontFamily: "var(--font-body)", backgroundColor: "var(--brand-primary)", color: "#fff" }}
             >
-              Vetted drivers. Every trip tracked. Every naira
-              accounted for and paid out automatically.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3 mb-12">
-              <Link
-                href="/register?role=investor"
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  backgroundColor: "var(--brand-primary)",
-                  color: "var(--ink-on-brand)",
-                }}
-              >
-                Start investing
-              </Link>
-              <Link
-                href="/register?role=driver"
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-semibold border transition-all duration-200 hover:bg-black/5 cursor-pointer"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  borderColor: "var(--line-subtle)",
-                  color: "var(--ink-strong)",
-                }}
-              >
-                Drive with Rydora
-              </Link>
-            </div>
-
-            {/* Trust strip */}
-            <div
-              className="flex flex-wrap gap-x-8 gap-y-3 pt-8 border-t"
-              style={{ borderColor: "var(--line-subtle)" }}
+              Start investing
+            </Link>
+            <Link
+              href="/register?role=driver"
+              className="w-full sm:w-auto flex items-center justify-center px-8 py-3.5 text-sm font-semibold border transition-colors duration-200 hover:bg-white/10 cursor-pointer"
+              style={{ fontFamily: "var(--font-body)", borderColor: "rgba(242,243,241,0.30)", color: "var(--ink-on-dark)" }}
             >
-              {trustStats.map((s) => (
-                <div key={s.label} className="flex items-baseline gap-2">
-                  <span
-                    className="text-2xl font-black"
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontVariationSettings: "'opsz' 24, 'SOFT' 0, 'WONK' 0",
-                      color: "var(--brand-accent)",
-                    }}
-                  >
-                    {s.value}
-                  </span>
-                  <span
-                    className="text-xs"
-                    style={{ fontFamily: "var(--font-body)", color: "var(--ink-muted)" }}
-                  >
-                    {s.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+              Drive with Rydora
+            </Link>
           </div>
         </div>
       </section>
@@ -437,7 +376,7 @@ export default function HomePage() {
       >
         <div className="absolute inset-0 z-0 opacity-30">
           <Image
-            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=75"
+            src="https://images.unsplash.com/photo-1671128972815-17ed4f000580?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
             fill
             className="object-cover object-center"
@@ -631,7 +570,7 @@ export default function HomePage() {
         {/* Background texture layer */}
         <div className="absolute inset-0 z-0 opacity-20">
           <Image
-            src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1920&q=75"
+            src="https://images.unsplash.com/photo-1627384011575-8e7d934f3d23?q=80&w=1175&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
             fill
             className="object-cover object-top"
