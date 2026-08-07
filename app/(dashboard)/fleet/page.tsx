@@ -7,6 +7,16 @@ import { naira } from "@/lib/format";
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
 
+const API_ORIGIN =
+  typeof process !== "undefined" && process.env.NEXT_PUBLIC_API_URL
+    ? process.env.NEXT_PUBLIC_API_URL.replace("/api/v1", "")
+    : "http://localhost:5000";
+
+function resolveUrl(path: string | undefined | null): string | null {
+  if (!path) return null;
+  return path.startsWith("http") ? path : `${API_ORIGIN}${path}`;
+}
+
 interface VehicleRow {
   _id: string;
   make: string;
@@ -14,6 +24,7 @@ interface VehicleRow {
   year: number;
   plateNumber: string;
   status: string;
+  photos: string[];
   weeklyRemittanceTargetKobo: number;
   fundingTargetKobo: number;
   fundedKobo: number;
@@ -275,7 +286,7 @@ export default function FleetPage() {
           <table className="min-w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--rd-line)]">
-                {["Vehicle", "Plate", "Status", "Driver", "Investor", "Weekly target", "Funding", "Actions", ""].map((h) => (
+                {["", "Vehicle", "Plate", "Status", "Driver", "Investor", "Weekly target", "Funding", "Actions", ""].map((h) => (
                   <th
                     key={h}
                     className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]"
@@ -297,6 +308,24 @@ export default function FleetPage() {
 
                 return (
                   <tr key={v._id} className="border-b border-[var(--rd-line)] last:border-b-0 hover:bg-[var(--rd-surface)]">
+                    {/* Photo thumbnail */}
+                    <td className="pl-4 pr-2 py-2">
+                      <div className="w-14 h-10 rounded-lg overflow-hidden bg-[var(--rd-surface)] border border-[var(--rd-line)] shrink-0">
+                        {resolveUrl(v.photos?.[0]) ? (
+                          <img
+                            src={resolveUrl(v.photos[0])!}
+                            alt=""
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-[var(--rd-ink-muted)]/30">
+                              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                    </td>
                     <td className="px-4 py-3">
                       <span className="font-medium text-[var(--rd-ink)]">
                         {v.make} {v.model}{" "}

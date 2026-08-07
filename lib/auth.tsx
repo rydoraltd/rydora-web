@@ -13,6 +13,7 @@ export interface SessionUser {
   phone?: string;
   role: Role;
   status: string;
+  kycStatus?: string;
   avatarUrl?: string | null;
 }
 

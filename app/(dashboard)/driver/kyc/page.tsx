@@ -24,6 +24,49 @@ interface FileState {
   preview: string | null;
 }
 
+function DocPreviewModal({ file, onClose }: { file: File; onClose: () => void }) {
+  const isImage = file.type.startsWith("image/");
+  const objectUrl = URL.createObjectURL(file);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div className="bg-[var(--rd-panel)] border border-[var(--rd-line)] rounded-2xl shadow-xl w-full max-w-xl overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-[var(--rd-line)]">
+          <p className="text-sm font-semibold text-[var(--rd-ink)] truncate max-w-[80%]">{file.name}</p>
+          <button onClick={onClose} className="text-[var(--rd-ink-muted)] hover:text-[var(--rd-ink)] transition-colors">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M18 6L6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div className="p-5">
+          {isImage ? (
+            <img src={objectUrl} alt="" className="w-full max-h-[65vh] object-contain rounded-xl" />
+          ) : (
+            <div className="flex flex-col items-center gap-4 py-12">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" className="text-red-400">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+              <p className="text-sm text-[var(--rd-ink-body)]">PDF — cannot preview in browser</p>
+              <a
+                href={objectUrl}
+                download={file.name}
+                className="px-4 py-2 rounded-lg text-sm font-medium bg-[var(--rd-primary)] text-white hover:bg-[var(--rd-primary-strong)] transition-colors"
+              >
+                Download to view
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function FileRow({
   field,
   value,
@@ -34,6 +77,7 @@ function FileRow({
   onChange: (f: File | null) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [previewing, setPreviewing] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] ?? null;
@@ -43,60 +87,79 @@ function FileRow({
   const isImage = value?.file.type.startsWith("image/");
 
   return (
-    <div className="flex items-center gap-4 py-3.5 border-b border-[var(--rd-line)] last:border-0">
-      {/* Thumbnail */}
-      <div
-        onClick={() => inputRef.current?.click()}
-        className="w-14 h-14 shrink-0 rounded-xl border-2 border-dashed border-[var(--rd-line)] bg-[var(--rd-surface)] flex items-center justify-center cursor-pointer hover:border-[var(--rd-primary)] transition-colors overflow-hidden"
-      >
-        {value ? (
-          isImage ? (
-            <img src={URL.createObjectURL(value.file)} alt="" className="w-full h-full object-cover" />
-          ) : (
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-[var(--rd-primary)]">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-              <polyline points="14 2 14 8 20 8" />
-            </svg>
-          )
-        ) : (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-[var(--rd-ink-muted)]/50">
-            <path d="M12 5v14M5 12h14" />
-          </svg>
-        )}
-      </div>
-
-      {/* Info */}
-      <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-[var(--rd-ink)]">
-          {field.label}
-          {field.required && <span className="text-[var(--rd-error)] ml-1">*</span>}
-        </p>
-        <p className="text-xs text-[var(--rd-ink-muted)] mt-0.5">{field.note}</p>
-        {value && (
-          <p className="text-xs text-emerald-600 mt-0.5 truncate font-medium">
-            ✓ {value.file.name}
-          </p>
-        )}
-      </div>
-
-      {/* Button */}
-      <div className="shrink-0">
-        <input
-          ref={inputRef}
-          type="file"
-          accept={field.accept}
-          onChange={handleChange}
-          className="hidden"
-        />
-        <button
-          type="button"
-          onClick={() => inputRef.current?.click()}
-          className="px-3 py-1.5 rounded-lg text-xs font-medium border border-[var(--rd-line)] text-[var(--rd-ink-muted)] hover:border-[var(--rd-primary)] hover:text-[var(--rd-primary)] transition-colors"
+    <>
+      <div className="flex items-center gap-4 py-3.5 border-b border-[var(--rd-line)] last:border-0">
+        {/* Thumbnail — click opens preview when file is selected */}
+        <div
+          onClick={() => value ? setPreviewing(true) : inputRef.current?.click()}
+          className={[
+            "w-16 h-16 shrink-0 rounded-xl border-2 bg-[var(--rd-surface)] flex items-center justify-center cursor-pointer overflow-hidden transition-all",
+            value
+              ? "border-[var(--rd-primary)] hover:opacity-80"
+              : "border-dashed border-[var(--rd-line)] hover:border-[var(--rd-primary)]",
+          ].join(" ")}
+          title={value ? "Click to preview" : "Click to choose file"}
         >
-          {value ? "Change" : "Choose"}
-        </button>
+          {value ? (
+            isImage ? (
+              <img src={URL.createObjectURL(value.file)} alt="" className="w-full h-full object-cover" />
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-red-400">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+            )
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-[var(--rd-ink-muted)]/50">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          )}
+        </div>
+
+        {/* Info */}
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium text-[var(--rd-ink)]">
+            {field.label}
+            {field.required && <span className="text-[var(--rd-error)] ml-1">*</span>}
+          </p>
+          <p className="text-xs text-[var(--rd-ink-muted)] mt-0.5">{field.note}</p>
+          {value && (
+            <div className="flex items-center gap-2 mt-0.5">
+              <p className="text-xs text-emerald-600 truncate font-medium">✓ {value.file.name}</p>
+              <button
+                type="button"
+                onClick={() => setPreviewing(true)}
+                className="text-[11px] text-[var(--rd-primary)] hover:underline shrink-0"
+              >
+                Preview
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Button */}
+        <div className="shrink-0">
+          <input
+            ref={inputRef}
+            type="file"
+            accept={field.accept}
+            onChange={handleChange}
+            className="hidden"
+          />
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            className="px-3 py-1.5 rounded-lg text-xs font-medium border border-[var(--rd-line)] text-[var(--rd-ink-muted)] hover:border-[var(--rd-primary)] hover:text-[var(--rd-primary)] transition-colors"
+          >
+            {value ? "Change" : "Choose"}
+          </button>
+        </div>
       </div>
-    </div>
+
+      {previewing && value && (
+        <DocPreviewModal file={value.file} onClose={() => setPreviewing(false)} />
+      )}
+    </>
   );
 }
 

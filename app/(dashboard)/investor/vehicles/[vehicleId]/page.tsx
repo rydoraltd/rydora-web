@@ -18,7 +18,10 @@ function resolveUrl(path: string | undefined | null): string | null {
   return path.startsWith("http") ? path : `${API_ORIGIN}${path}`;
 }
 
-function isPdf(url: string) { return url.toLowerCase().endsWith(".pdf"); }
+function isPdf(url: string) {
+  const lower = url.toLowerCase();
+  return lower.endsWith(".pdf") || lower.includes("/raw/upload/");
+}
 
 const DOC_LABELS: Record<string, string> = {
   proof_of_ownership: "Proof of Ownership",

@@ -19,7 +19,8 @@ function resolveUrl(path: string | undefined | null): string | null {
 }
 
 function isPdf(url: string) {
-  return url.toLowerCase().endsWith(".pdf");
+  const lower = url.toLowerCase();
+  return lower.endsWith(".pdf") || lower.includes("/raw/upload/");
 }
 
 const DOC_LABELS: Record<string, string> = {
