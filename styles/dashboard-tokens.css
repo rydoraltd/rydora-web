@@ -4,7 +4,7 @@
   --rd-primary-strong: #0A4534;
   --rd-accent: #E8A33D;
 
-  --rd-surface: #F7F7F5;
+  --rd-surface: #F4F5F4;
   --rd-panel: #FFFFFF;
   --rd-inverse: #101418;
 
@@ -17,4 +17,26 @@
   --rd-success: #1D7A4F;
   --rd-warning: #C77A1E;
   --rd-error: #B3403A;
+
+  /* Radii */
+  --rd-radius-sm: 6px;
+  --rd-radius-md: 8px;
+  --rd-radius-lg: 12px;
+  --rd-radius-xl: 16px;
+
+  /* Shadows */
+  --rd-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  --rd-shadow-md: 0 4px 16px -4px rgba(0, 0, 0, 0.08), 0 2px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Scoped dashboard form + button rounding ────────────────────── */
+/* Applied via the rd-main class on (dashboard)/layout.tsx main tag  */
+.rd-main input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.rd-main select,
+.rd-main textarea {
+  border-radius: var(--rd-radius-md);
+}
+
+.rd-main button {
+  border-radius: var(--rd-radius-md);
 }

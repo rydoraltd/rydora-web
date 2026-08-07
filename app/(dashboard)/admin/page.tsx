@@ -35,7 +35,7 @@ export default function AdminOverviewPage() {
         <StatCard label="Pending approvals" value={data.counts.pendingUsers} hint={`${data.counts.pendingMaintenance} maintenance requests`} />
       </div>
 
-      <section className="mt-8 border border-[var(--rd-line)] bg-[var(--rd-panel)] p-5">
+      <section className="mt-8 border border-[var(--rd-line)] bg-[var(--rd-panel)] p-5 rounded-xl shadow-[var(--rd-shadow-sm)]">
         <h2 className="text-[11px] uppercase tracking-[0.14em] text-[var(--rd-ink-muted)] mb-4">
           Remittances, last 30 days
         </h2>
@@ -45,7 +45,7 @@ export default function AdminOverviewPage() {
           <div className="flex items-end gap-1 h-32">
             {data.remittanceTrend.map((d) => (
               <div key={d._id} className="flex-1 flex flex-col justify-end group" title={`${d._id}: ${naira(d.kobo)}`}>
-                <div className="bg-[var(--rd-primary)] group-hover:bg-[var(--rd-primary-strong)]" style={{ height: `${(d.kobo / max) * 100}%`, minHeight: 2 }} />
+                <div className="bg-[var(--rd-primary)] group-hover:bg-[var(--rd-primary-strong)] rounded-t-sm" style={{ height: `${(d.kobo / max) * 100}%`, minHeight: 2 }} />
               </div>
             ))}
           </div>

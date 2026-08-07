@@ -73,7 +73,7 @@ export default function AdminPayoutsPage() {
           Pending approval ({requested.length})
         </h2>
         {requested.length === 0 ? (
-          <div className="border border-[var(--rd-line)] bg-[var(--rd-panel)] p-8 text-center text-sm text-[var(--rd-ink-muted)]">
+          <div className="border border-[var(--rd-line)] bg-[var(--rd-panel)] p-8 text-center text-sm text-[var(--rd-ink-muted)] rounded-xl">
             No pending payout requests.
           </div>
         ) : (
@@ -81,7 +81,7 @@ export default function AdminPayoutsPage() {
             {requested.map((entry) => (
               <div
                 key={entry._id}
-                className="border border-[var(--rd-line)] bg-[var(--rd-panel)] p-5 flex flex-wrap items-start justify-between gap-4"
+                className="border border-[var(--rd-line)] bg-[var(--rd-panel)] p-5 flex flex-wrap items-start justify-between gap-4 rounded-xl shadow-[var(--rd-shadow-sm)]"
               >
                 <div>
                   <p className="font-medium text-[var(--rd-ink)]">
@@ -141,7 +141,7 @@ export default function AdminPayoutsPage() {
               return (
                 <div
                   key={entry._id}
-                  className="border border-[var(--rd-line)] bg-[var(--rd-panel)] p-4 flex flex-wrap items-center justify-between gap-3 opacity-75"
+                  className="border border-[var(--rd-line)] bg-[var(--rd-panel)] p-4 flex flex-wrap items-center justify-between gap-3 opacity-75 rounded-xl"
                 >
                   <div>
                     <p className="text-sm font-medium text-[var(--rd-ink)]">

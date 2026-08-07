@@ -6,6 +6,8 @@ import Link from "next/link";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
+const inputCls = "mt-1 w-full border border-[var(--rd-line)] px-3 py-2 text-sm bg-[var(--rd-panel)] text-[var(--rd-ink)] focus:outline-none focus:border-[var(--rd-primary)] rounded-lg";
+
 function RegisterForm() {
   const router = useRouter();
   const params = useSearchParams();
@@ -55,7 +57,7 @@ function RegisterForm() {
 
   return (
     <main className="min-h-screen bg-[var(--rd-surface)] flex items-center justify-center px-4 py-16">
-      <div className="w-full max-w-md border border-[var(--rd-line)] bg-[var(--rd-panel)] p-8">
+      <div className="w-full max-w-md border border-[var(--rd-line)] bg-[var(--rd-panel)] p-8 rounded-2xl shadow-[var(--rd-shadow-md)]">
         <Link href="/" className="font-semibold tracking-tight text-lg text-[var(--rd-ink)]">
           RYDORA
         </Link>
@@ -79,7 +81,7 @@ function RegisterForm() {
                   key={r.value}
                   type="button"
                   onClick={() => setRole(r.value)}
-                  className={`text-left p-3 border text-sm transition-colors ${
+                  className={`text-left p-3 border text-sm transition-colors rounded-xl ${
                     role === r.value
                       ? "border-[var(--rd-primary)] bg-[var(--rd-surface)]"
                       : "border-[var(--rd-line)] hover:border-[var(--rd-ink-muted)]"
@@ -107,65 +109,26 @@ function RegisterForm() {
                 <span className="text-xs uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]">
                   {key === "firstName" ? "First name" : "Last name"}
                 </span>
-                <input
-                  type="text"
-                  value={form[key]}
-                  onChange={field(key)}
-                  required
-                  className="mt-1 w-full border border-[var(--rd-line)] px-3 py-2 text-sm bg-[var(--rd-panel)] text-[var(--rd-ink)] focus:outline-none focus:border-[var(--rd-primary)]"
-                />
+                <input type="text" value={form[key]} onChange={field(key)} required className={inputCls} />
               </label>
             ))}
           </div>
 
-          {/* Email */}
           <label className="block">
-            <span className="text-xs uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]">
-              Email address
-            </span>
-            <input
-              type="email"
-              value={form.email}
-              onChange={field("email")}
-              required
-              className="mt-1 w-full border border-[var(--rd-line)] px-3 py-2 text-sm bg-[var(--rd-panel)] text-[var(--rd-ink)] focus:outline-none focus:border-[var(--rd-primary)]"
-            />
+            <span className="text-xs uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]">Email address</span>
+            <input type="email" value={form.email} onChange={field("email")} required className={inputCls} />
           </label>
 
-          {/* Phone */}
           <label className="block">
-            <span className="text-xs uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]">
-              Phone number
-            </span>
-            <input
-              type="tel"
-              value={form.phone}
-              onChange={field("phone")}
-              required
-              placeholder="+2348012345678"
-              className="mt-1 w-full border border-[var(--rd-line)] px-3 py-2 text-sm bg-[var(--rd-panel)] text-[var(--rd-ink)] focus:outline-none focus:border-[var(--rd-primary)]"
-            />
-            <span className="text-[11px] text-[var(--rd-ink-muted)] mt-1 block">
-              Used for your account profile.
-            </span>
+            <span className="text-xs uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]">Phone number</span>
+            <input type="tel" value={form.phone} onChange={field("phone")} required placeholder="+2348012345678" className={inputCls} />
+            <span className="text-[11px] text-[var(--rd-ink-muted)] mt-1 block">Used for your account profile.</span>
           </label>
 
-          {/* Password */}
           <label className="block">
-            <span className="text-xs uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]">
-              Password
-            </span>
-            <input
-              type="password"
-              value={form.password}
-              onChange={field("password")}
-              required
-              minLength={8}
-              className="mt-1 w-full border border-[var(--rd-line)] px-3 py-2 text-sm bg-[var(--rd-panel)] text-[var(--rd-ink)] focus:outline-none focus:border-[var(--rd-primary)]"
-            />
-            <span className="text-[11px] text-[var(--rd-ink-muted)] mt-1 block">
-              Minimum 8 characters.
-            </span>
+            <span className="text-xs uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]">Password</span>
+            <input type="password" value={form.password} onChange={field("password")} required minLength={8} className={inputCls} />
+            <span className="text-[11px] text-[var(--rd-ink-muted)] mt-1 block">Minimum 8 characters.</span>
           </label>
 
           {error && <p className="text-sm text-[var(--rd-error)]">{error}</p>}
@@ -173,7 +136,7 @@ function RegisterForm() {
           <button
             type="submit"
             disabled={busy}
-            className="w-full bg-[var(--rd-primary)] text-[var(--rd-ink-on-dark)] py-2.5 text-sm font-medium hover:bg-[var(--rd-primary-strong)] disabled:opacity-50"
+            className="w-full bg-[var(--rd-primary)] text-[var(--rd-ink-on-dark)] py-2.5 text-sm font-medium hover:bg-[var(--rd-primary-strong)] disabled:opacity-50 rounded-lg"
           >
             {busy ? "Creating account…" : "Create account"}
           </button>
