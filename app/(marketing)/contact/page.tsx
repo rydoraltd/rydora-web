@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import ContactForm from "@/components/marketing/ContactForm";
 
@@ -52,7 +52,6 @@ export default function ContactPage() {
             className="text-5xl lg:text-[72px] font-black leading-[1.04] tracking-tight max-w-2xl mb-6"
             style={{
               fontFamily: "var(--font-display)",
-              fontVariationSettings: "'opsz' 72, 'SOFT' 0, 'WONK' 0",
               color: "var(--ink-strong)",
             }}
           >

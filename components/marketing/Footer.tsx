@@ -1,4 +1,5 @@
-import Link from "next/link";
+﻿import Link from "next/link";
+import Image from "next/image";
 
 const footerLinks = {
   company: {
@@ -36,8 +37,8 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer
-      style={{
+    <footer 
+    style={{
         backgroundColor: "var(--surface-inverse)",
         color: "var(--ink-on-dark)",
       }}
@@ -48,21 +49,13 @@ export default function Footer() {
           style={{ borderColor: "var(--line-subtle)" }}>
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <span
-                className="text-2xl font-black tracking-tight"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontVariationSettings: "'opsz' 24, 'SOFT' 0, 'WONK' 0",
-                  color: "var(--ink-on-dark)",
-                }}
-              >
-                Rydora
-              </span>
-              <span
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ backgroundColor: "var(--brand-accent)" }}
-                aria-hidden="true"
+            <div className="mb-4">
+              <Image
+                src="/images/Logo white.png"
+                alt="Rydora"
+                height={36}
+                width={36}
+                className="object-contain"
               />
             </div>
             <p
@@ -138,7 +131,6 @@ export default function Footer() {
             className="text-lg font-black tracking-tight"
             style={{
               fontFamily: "var(--font-display)",
-              fontVariationSettings: "'opsz' 18, 'SOFT' 0, 'WONK' 0",
               color: "var(--ink-on-dark)",
             }}
           >

@@ -87,8 +87,12 @@ export default function LedgerPage() {
   return (
     <>
       <PageHeader
-        title="Ledger"
-        description="Every financial entry tied to your account. Permanent and append-only."
+        title="Earnings Statement"
+        description="See how each vehicle is performing and what you earn per payout cycle."
+        breadcrumb={[
+          { label: "Dashboard", href: "/investor" },
+          { label: "Earnings Statement" },
+        ]}
       />
       <DataTable
         columns={columns}

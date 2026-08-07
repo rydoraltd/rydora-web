@@ -73,7 +73,11 @@ export default function InvestorPage() {
 
   return (
     <>
-      <PageHeader title="Portfolio" description="Your vehicles and what they have earned you." />
+      <PageHeader
+        title="Dashboards"
+        description="Your vehicles and what they have earned you."
+        breadcrumb={[{ label: "Dashboard" }]}
+      />
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard label="Total earned" value={naira(earned)} tone="accent" />

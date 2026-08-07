@@ -58,14 +58,14 @@ export default function ApprovalsPage() {
           <button
             onClick={() => decide(u._id, "approve")}
             disabled={busyId === u._id}
-            className="px-3 py-1.5 text-xs font-medium bg-[var(--rd-primary)] text-[var(--rd-ink-on-dark)] hover:bg-[var(--rd-primary-strong)] disabled:opacity-50"
+            className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--rd-primary)] text-[var(--rd-ink-on-dark)] hover:bg-[var(--rd-primary-strong)] disabled:opacity-50 transition-colors"
           >
             Approve
           </button>
           <button
             onClick={() => decide(u._id, "reject")}
             disabled={busyId === u._id}
-            className="px-3 py-1.5 text-xs font-medium border border-[var(--rd-line)] text-[var(--rd-error)] hover:border-[var(--rd-error)] disabled:opacity-50"
+            className="px-3 py-1.5 rounded-lg text-xs font-medium border border-[var(--rd-line)] text-[var(--rd-error)] hover:border-[var(--rd-error)] disabled:opacity-50 transition-colors"
           >
             Reject
           </button>
@@ -76,7 +76,22 @@ export default function ApprovalsPage() {
 
   return (
     <>
-      <PageHeader title="Approvals" description="New registrations waiting for review. Approving a driver also creates their virtual account." />
+      <PageHeader
+        title="Approvals"
+        description="New registrations waiting for review. Approving a driver also creates their virtual account."
+        breadcrumb={[
+          { label: "Admin", href: "/admin" },
+          { label: "Approvals" },
+        ]}
+        action={
+          rows.length > 0 ? (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+              {rows.length} pending
+            </span>
+          ) : null
+        }
+      />
       {error ? <p className="text-sm text-[var(--rd-error)] mb-4">{error}</p> : null}
       <DataTable columns={columns} rows={rows} emptyText="No pending registrations." />
     </>

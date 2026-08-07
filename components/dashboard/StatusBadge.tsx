@@ -3,13 +3,13 @@ import { titleCase } from "@/lib/format";
 type BadgeStyle = { color: string; bg: string };
 
 const STYLES: Record<string, BadgeStyle> = {
-  active:      { color: "#1D7A4F", bg: "rgba(29,122,79,0.09)" },
+  active:      { color: "#1A8F94", bg: "rgba(63,196,201,0.10)" },   /* Electric Teal — live */
+  listed:      { color: "#1A8F94", bg: "rgba(63,196,201,0.10)" },   /* on platform, available */
+  assigned:    { color: "#1E5FAF", bg: "rgba(30,95,175,0.09)" },    /* Royal Blue — allocated */
   approved:    { color: "#1D7A4F", bg: "rgba(29,122,79,0.09)" },
   funded:      { color: "#1D7A4F", bg: "rgba(29,122,79,0.09)" },
   completed:   { color: "#1D7A4F", bg: "rgba(29,122,79,0.09)" },
   reconciled:  { color: "#1D7A4F", bg: "rgba(29,122,79,0.09)" },
-  listed:      { color: "#0E5A43", bg: "rgba(14,90,67,0.08)" },
-  assigned:    { color: "#0E5A43", bg: "rgba(14,90,67,0.08)" },
   pending:     { color: "#C77A1E", bg: "rgba(199,122,30,0.09)" },
   requested:   { color: "#C77A1E", bg: "rgba(199,122,30,0.09)" },
   received:    { color: "#C77A1E", bg: "rgba(199,122,30,0.09)" },
@@ -19,11 +19,11 @@ const STYLES: Record<string, BadgeStyle> = {
   suspended:   { color: "#B3403A", bg: "rgba(179,64,58,0.08)" },
   rejected:    { color: "#B3403A", bg: "rgba(179,64,58,0.08)" },
   flagged:     { color: "#B3403A", bg: "rgba(179,64,58,0.08)" },
-  retired:     { color: "#7A828D", bg: "rgba(122,130,141,0.08)" },
-  draft:       { color: "#7A828D", bg: "rgba(122,130,141,0.08)" },
+  retired:     { color: "#7A8899", bg: "rgba(122,130,153,0.08)" },
+  draft:       { color: "#7A8899", bg: "rgba(122,130,153,0.08)" },
 };
 
-const DEFAULT: BadgeStyle = { color: "#7A828D", bg: "rgba(122,130,141,0.08)" };
+const DEFAULT: BadgeStyle = { color: "#7A8899", bg: "rgba(122,130,153,0.08)" };
 
 export function StatusBadge({ status }: { status: string }) {
   const { color, bg } = STYLES[status] ?? DEFAULT;

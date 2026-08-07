@@ -2,16 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
-import { naira } from "@/lib/format";
-import { StatCard } from "@/components/dashboard/StatCard";
+import { shortDate } from "@/lib/format";
 import { PageHeader } from "@/components/dashboard/PageHeader";
-import { useAuth } from "@/lib/auth";
-
-interface Overview {
-  counts: { users: number; vehicles: number; pendingUsers: number; pendingMaintenance: number };
-  remittances: { totalKobo: number; count: number };
-  remittanceTrend: { _id: string; kobo: number }[];
-}
+import { StatusBadge } from "@/components/dashboard/StatusBadge";
 
 interface Admin {
   _id: string;
@@ -25,45 +18,37 @@ interface Admin {
 
 const EMPTY_FORM = { firstName: "", lastName: "", email: "", phone: "" };
 
-function shortDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-NG", { day: "numeric", month: "short", year: "numeric" });
-}
-
-export default function AdminOverviewPage() {
-  const { user } = useAuth();
-  const isSuperAdmin = user?.role === "super_admin";
-
-  const [data, setData]       = useState<Overview | null>(null);
+export default function AdminsPage() {
   const [admins, setAdmins]   = useState<Admin[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [form, setForm]       = useState(EMPTY_FORM);
-  const [busy, setBusy]       = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
+
+  const [showModal, setShowModal]     = useState(false);
+  const [form, setForm]               = useState(EMPTY_FORM);
+  const [busy, setBusy]               = useState(false);
+  const [formError, setFormError]     = useState<string | null>(null);
   const [formSuccess, setFormSuccess] = useState<string | null>(null);
 
-  function loadAdmins() {
-    if (isSuperAdmin) {
-      api<Admin[]>("/admin/admins").then(setAdmins).catch(() => {});
-    }
+  function load() {
+    setLoading(true);
+    api<Admin[]>("/admin/admins")
+      .then(setAdmins)
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false));
   }
 
-  useEffect(() => {
-    api<Overview>("/admin/overview").then(setData).catch((e) => setError(e.message));
-    loadAdmins();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuperAdmin]);
+  useEffect(load, []);
 
-  async function handleCreateAdmin(e: React.FormEvent) {
+  async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     setFormError(null);
     setFormSuccess(null);
     try {
       await api("/admin/admins", { method: "POST", body: form as Record<string, unknown> });
-      setFormSuccess(`Admin account created. A temporary password has been sent to ${form.email}.`);
+      setFormSuccess(`Admin created. A temporary password has been emailed to ${form.email}.`);
       setForm(EMPTY_FORM);
-      loadAdmins();
+      load();
     } catch (err) {
       setFormError(err instanceof Error ? err.message : "Failed to create admin");
     } finally {
@@ -71,69 +56,49 @@ export default function AdminOverviewPage() {
     }
   }
 
-  const max = Math.max(1, ...(data?.remittanceTrend ?? []).map((d) => d.kobo));
-
-  if (error) return <p className="text-sm text-[var(--rd-error)]">{error}</p>;
-  if (!data) return <p className="text-sm text-[var(--rd-ink-muted)]">Loading</p>;
+  function openModal() {
+    setShowModal(true);
+    setFormError(null);
+    setFormSuccess(null);
+  }
 
   return (
     <>
       <PageHeader
-        title="Overview"
-        description="The state of the platform right now."
-        breadcrumb={[{ label: "Dashboard" }]}
+        title="Admin Accounts"
+        description="Manage who has administrative access to the Rydora platform."
+        breadcrumb={[
+          { label: "Admin", href: "/admin" },
+          { label: "Admin Accounts" },
+        ]}
         action={
-          isSuperAdmin ? (
-            <button
-              onClick={() => { setShowModal(true); setFormError(null); setFormSuccess(null); }}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-[var(--rd-primary)] hover:bg-[var(--rd-primary-strong)] transition-colors"
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
-              Create Admin
-            </button>
-          ) : undefined
+          <button
+            onClick={openModal}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-[var(--rd-primary)] hover:bg-[var(--rd-primary-strong)] transition-colors"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+            Create Admin
+          </button>
         }
       />
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard label="Total remitted" value={naira(data.remittances.totalKobo)} hint={`${data.remittances.count} payments`} tone="accent" />
-        <StatCard label="Vehicles" value={data.counts.vehicles} />
-        <StatCard label="Users" value={data.counts.users} />
-        <StatCard label="Pending approvals" value={data.counts.pendingUsers} hint={`${data.counts.pendingMaintenance} maintenance requests`} />
-      </div>
+      {error && <p className="text-sm text-[var(--rd-error)] mb-4">{error}</p>}
 
-      {/* Remittance trend chart */}
-      <section className="mt-6 border border-[var(--rd-line)] bg-[var(--rd-panel)] p-5 rounded-xl shadow-[var(--rd-shadow-sm)]">
-        <h2 className="text-[11px] uppercase tracking-[0.14em] text-[var(--rd-ink-muted)] mb-4">
-          Remittances, last 30 days
-        </h2>
-        {data.remittanceTrend.length === 0 ? (
-          <p className="text-sm text-[var(--rd-ink-muted)] py-6">No remittances recorded yet.</p>
-        ) : (
-          <div className="flex items-end gap-1 h-32">
-            {data.remittanceTrend.map((d) => (
-              <div key={d._id} className="flex-1 flex flex-col justify-end group" title={`${d._id}: ${naira(d.kobo)}`}>
-                <div className="bg-[var(--rd-primary)] group-hover:bg-[var(--rd-primary-strong)] rounded-t-sm" style={{ height: `${(d.kobo / max) * 100}%`, minHeight: 2 }} />
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* Admin list — super_admin only */}
-      {isSuperAdmin && (
-        <section className="mt-6 border border-[var(--rd-line)] bg-[var(--rd-panel)] rounded-xl shadow-[var(--rd-shadow-sm)] overflow-hidden">
-          <div className="px-5 py-4 border-b border-[var(--rd-line)] flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-[var(--rd-ink)]">Admin Accounts</h2>
-            <span className="text-xs text-[var(--rd-ink-muted)]">{admins.length} admin{admins.length !== 1 ? "s" : ""}</span>
-          </div>
+      {loading ? (
+        <p className="text-sm text-[var(--rd-ink-muted)]">Loading…</p>
+      ) : (
+        <div className="bg-[var(--rd-panel)] border border-[var(--rd-line)] rounded-xl overflow-hidden shadow-[var(--rd-shadow-sm)]">
           {admins.length === 0 ? (
-            <div className="px-5 py-10 text-center">
-              <p className="text-sm text-[var(--rd-ink-muted)]">No admin accounts yet.</p>
+            <div className="px-6 py-16 text-center">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" className="text-[var(--rd-ink-muted)]/30 mx-auto mb-4">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              <p className="text-sm font-medium text-[var(--rd-ink-muted)]">No admin accounts yet</p>
               <button
-                onClick={() => setShowModal(true)}
+                onClick={openModal}
                 className="mt-3 text-sm text-[var(--rd-primary)] hover:underline font-medium"
               >
                 Create the first admin →
@@ -144,37 +109,36 @@ export default function AdminOverviewPage() {
               <thead>
                 <tr className="bg-[var(--rd-surface)] border-b border-[var(--rd-line)]">
                   {["Name", "Email", "Phone", "Status", "Created"].map((h) => (
-                    <th key={h} className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--rd-ink-muted)]">{h}</th>
+                    <th key={h} className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--rd-ink-muted)]">
+                      {h}
+                    </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {admins.map((a) => (
                   <tr key={a._id} className="border-b border-[var(--rd-line)] last:border-0 hover:bg-[var(--rd-surface)] transition-colors">
-                    <td className="px-5 py-3.5 font-medium text-[var(--rd-ink)]">{a.firstName} {a.lastName}</td>
+                    <td className="px-5 py-3.5 font-medium text-[var(--rd-ink)]">
+                      {a.firstName} {a.lastName}
+                    </td>
                     <td className="px-5 py-3.5 text-[var(--rd-ink-muted)]">{a.email}</td>
                     <td className="px-5 py-3.5 text-[var(--rd-ink-muted)]">{a.phone}</td>
                     <td className="px-5 py-3.5">
-                      <span className={[
-                        "px-2 py-0.5 rounded-full text-[11px] font-medium",
-                        a.status === "active" ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700",
-                      ].join(" ")}>
-                        {a.status}
-                      </span>
+                      <StatusBadge status={a.status} />
                     </td>
-                    <td className="px-5 py-3.5 text-[var(--rd-ink-muted)]">{shortDate(a.createdAt)}</td>
+                    <td className="px-5 py-3.5 text-[var(--rd-ink-muted)] text-xs">{shortDate(a.createdAt)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           )}
-        </section>
+        </div>
       )}
 
       {/* Create Admin modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+          <div className="bg-[var(--rd-panel)] rounded-2xl shadow-2xl w-full max-w-md">
             <div className="px-6 pt-6 pb-0 flex items-center justify-between">
               <h2 className="text-base font-semibold text-[var(--rd-ink)]">Create Admin Account</h2>
               <button
@@ -190,7 +154,7 @@ export default function AdminOverviewPage() {
               A temporary password will be generated and emailed to the new admin.
             </p>
 
-            <form onSubmit={handleCreateAdmin} className="px-6 pt-5 pb-6 space-y-4">
+            <form onSubmit={handleCreate} className="px-6 pt-5 pb-6 space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 {(["firstName", "lastName"] as const).map((key) => (
                   <div key={key}>
@@ -201,8 +165,7 @@ export default function AdminOverviewPage() {
                       type="text"
                       value={form[key]}
                       onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
-                      required
-                      minLength={2}
+                      required minLength={2}
                       placeholder={key === "firstName" ? "e.g. Emeka" : "e.g. Obi"}
                       className="w-full rounded-lg px-3 py-2.5 text-sm border border-[var(--rd-line)] bg-[var(--rd-surface)] text-[var(--rd-ink)] focus:outline-none focus:border-[var(--rd-primary)] transition-colors"
                     />
@@ -242,7 +205,7 @@ export default function AdminOverviewPage() {
                 <p className="text-sm text-[var(--rd-error)] bg-red-50 px-3 py-2 rounded-lg">{formError}</p>
               )}
               {formSuccess && (
-                <p className="text-sm text-[var(--rd-success)] bg-green-50 px-3 py-2 rounded-lg">{formSuccess}</p>
+                <p className="text-sm text-emerald-700 bg-emerald-50 px-3 py-2 rounded-lg">{formSuccess}</p>
               )}
 
               <div className="flex gap-3 pt-1">

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -81,7 +81,7 @@ export default function InvestorsPage() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to top, rgba(16,20,24,0.92) 0%, rgba(16,20,24,0.45) 60%, rgba(16,20,24,0.2) 100%)",
+                "linear-gradient(to top, rgba(8,44,86,0.92) 0%, rgba(8,44,86,0.50) 60%, rgba(8,44,86,0.20) 100%)",
             }}
             aria-hidden="true"
           />
@@ -100,7 +100,6 @@ export default function InvestorsPage() {
             className="text-5xl lg:text-[72px] font-black leading-[1.04] tracking-tight max-w-2xl"
             style={{
               fontFamily: "var(--font-display)",
-              fontVariationSettings: "'opsz' 72, 'SOFT' 0, 'WONK' 0",
               color: "var(--ink-on-dark)",
             }}
           >
@@ -141,7 +140,6 @@ export default function InvestorsPage() {
               className="text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight"
               style={{
                 fontFamily: "var(--font-display)",
-                fontVariationSettings: "'opsz' 48, 'SOFT' 0, 'WONK' 0",
                 color: "var(--ink-strong)",
               }}
             >
@@ -223,7 +221,6 @@ export default function InvestorsPage() {
                 className="text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight mb-8"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontVariationSettings: "'opsz' 48, 'SOFT' 0, 'WONK' 0",
                   color: "var(--ink-on-dark)",
                 }}
               >
@@ -328,7 +325,6 @@ export default function InvestorsPage() {
               className="text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight"
               style={{
                 fontFamily: "var(--font-display)",
-                fontVariationSettings: "'opsz' 48, 'SOFT' 0, 'WONK' 0",
                 color: "var(--ink-strong)",
               }}
             >
@@ -383,7 +379,6 @@ export default function InvestorsPage() {
             className="text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight mb-6"
             style={{
               fontFamily: "var(--font-display)",
-              fontVariationSettings: "'opsz' 48, 'SOFT' 0, 'WONK' 0",
               color: "var(--ink-on-dark)",
             }}
           >

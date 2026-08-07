@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { api } from "@/lib/api";
 import { naira } from "@/lib/format";
 import { PageHeader } from "@/components/dashboard/PageHeader";
@@ -274,7 +275,7 @@ export default function FleetPage() {
           <table className="min-w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--rd-line)]">
-                {["Vehicle", "Plate", "Status", "Driver", "Investor", "Weekly target", "Funding", "Actions"].map((h) => (
+                {["Vehicle", "Plate", "Status", "Driver", "Investor", "Weekly target", "Funding", "Actions", ""].map((h) => (
                   <th
                     key={h}
                     className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]"
@@ -368,6 +369,14 @@ export default function FleetPage() {
                           </button>
                         )}
                       </div>
+                    </td>
+                    <td className="px-4 py-3">
+                      <Link
+                        href={`/fleet/${v._id}`}
+                        className="px-2.5 py-1.5 rounded-lg text-[11px] font-medium border border-[var(--rd-line)] text-[var(--rd-primary)] hover:bg-blue-50 transition-colors whitespace-nowrap"
+                      >
+                        View details
+                      </Link>
                     </td>
                   </tr>
                 );
