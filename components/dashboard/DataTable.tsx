@@ -13,7 +13,7 @@ export function DataTable<T extends { _id?: string }>({ columns, rows, emptyText
   emptyText?: string;
 }) {
   return (
-    <div className="border border-[var(--rd-line)] bg-[var(--rd-panel)] overflow-x-auto">
+    <div className="border border-[var(--rd-line)] bg-[var(--rd-panel)] overflow-x-auto rounded-xl shadow-[var(--rd-shadow-sm)]">
       <table className="min-w-full text-sm">
         <thead>
           <tr className="border-b border-[var(--rd-line)]">

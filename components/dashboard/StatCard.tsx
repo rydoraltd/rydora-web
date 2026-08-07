@@ -4,7 +4,7 @@ export function StatCard({ label, value, hint, tone = "default" }: {
   hint?: string;
   tone?: "default" | "accent" | "inverse";
 }) {
-  const base = "border border-[var(--rd-line)] p-5 flex flex-col gap-1";
+  const base = "border border-[var(--rd-line)] p-5 flex flex-col gap-1 rounded-xl shadow-[var(--rd-shadow-sm)]";
   const tones = {
     default: "bg-[var(--rd-panel)]",
     accent: "bg-[var(--rd-primary)] text-[var(--rd-ink-on-dark)] border-transparent",

@@ -23,9 +23,9 @@ function Guard({ children }: { children: ReactNode }) {
   if (!user) return null;
 
   return (
-    <div className="flex min-h-screen bg-(--rd-surface)">
+    <div className="flex h-screen overflow-hidden bg-(--rd-surface)">
       <Sidebar />
-      <main className="flex-1 min-w-0 px-4 py-6 pt-20 md:px-8 md:py-8 md:pt-8">{children}</main>
+      <main className="flex-1 min-w-0 overflow-y-auto px-4 py-6 pt-20 md:px-8 md:py-8 md:pt-8 rd-main">{children}</main>
     </div>
   );
 }

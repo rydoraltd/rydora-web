@@ -38,18 +38,18 @@ export default function DriverHomePage() {
         <StatCard label="Remaining" value={naira(data.week.remainingKobo)} />
       </div>
 
-      <div className="mt-4 border border-[var(--rd-line)] bg-[var(--rd-panel)] p-5">
+      <div className="mt-4 border border-[var(--rd-line)] bg-[var(--rd-panel)] p-5 rounded-xl shadow-[var(--rd-shadow-sm)]">
         <div className="flex justify-between text-xs text-[var(--rd-ink-muted)] mb-2">
           <span>Weekly progress</span>
           <span>{pct}%</span>
         </div>
-        <div className="h-2 bg-[var(--rd-surface)]">
-          <div className="h-2 bg-[var(--rd-primary)]" style={{ width: `${pct}%` }} />
+        <div className="h-2 bg-[var(--rd-surface)] rounded-full overflow-hidden">
+          <div className="h-2 bg-[var(--rd-primary)] rounded-full" style={{ width: `${pct}%` }} />
         </div>
       </div>
 
       {data.virtualAccount ? (
-        <section className="mt-8 border border-[var(--rd-line)] bg-[var(--rd-inverse)] text-[var(--rd-ink-on-dark)] p-6">
+        <section className="mt-8 border border-[var(--rd-line)] bg-[var(--rd-inverse)] text-[var(--rd-ink-on-dark)] p-6 rounded-xl">
           <h2 className="text-[11px] uppercase tracking-[0.14em] opacity-70">Pay your remittance to</h2>
           <p className="mt-3 text-2xl font-semibold tracking-wide tabular-nums">{data.virtualAccount.accountNumber}</p>
           <p className="mt-1 text-sm opacity-80">{data.virtualAccount.bankName}</p>

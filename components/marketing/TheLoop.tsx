@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useLayoutEffect, useRef } from "react";
 
@@ -167,7 +167,6 @@ export default function TheLoop() {
             className="text-4xl lg:text-6xl font-black leading-[1.05] tracking-tight max-w-xl"
             style={{
               fontFamily: "var(--font-display)",
-              fontVariationSettings: "'opsz' 64, 'SOFT' 0, 'WONK' 0",
               color: "var(--ink-on-dark)",
             }}
           >
@@ -213,7 +212,6 @@ export default function TheLoop() {
                     className="text-2xl font-black mb-3"
                     style={{
                       fontFamily: "var(--font-display)",
-                      fontVariationSettings: "'opsz' 24, 'SOFT' 0, 'WONK' 0",
                       color: "var(--ink-on-dark)",
                     }}
                   >
@@ -304,7 +302,6 @@ export default function TheLoop() {
                   className="text-xl font-black mb-2"
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontVariationSettings: "'opsz' 20, 'SOFT' 0, 'WONK' 0",
                     color: "var(--ink-on-dark)",
                   }}
                 >

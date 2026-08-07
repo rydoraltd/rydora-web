@@ -65,10 +65,10 @@ export default function HomePage() {
             className="object-cover object-center"
             sizes="100vw"
           />
-          <div className="absolute inset-0" style={{ background: "rgba(16,20,24,0.60)" }} />
+          <div className="absolute inset-0" style={{ background: "rgba(8,44,86,0.65)" }} />
           <div
             className="absolute inset-0"
-            style={{ background: "linear-gradient(to bottom, rgba(16,20,24,0.1) 0%, rgba(16,20,24,0.55) 100%)" }}
+            style={{ background: "linear-gradient(to bottom, rgba(8,44,86,0.10) 0%, rgba(8,44,86,0.60) 100%)" }}
           />
         </div>
 
@@ -78,7 +78,6 @@ export default function HomePage() {
             className="anim-fade-up font-black tracking-tight"
             style={{
               fontFamily: "var(--font-display)",
-              fontVariationSettings: "'opsz' 72, 'SOFT' 0, 'WONK' 0",
               fontSize: "clamp(2.25rem, 5vw + 1rem, 5.5rem)",
               lineHeight: "1.05",
               color: "var(--ink-on-dark)",
@@ -136,7 +135,7 @@ export default function HomePage() {
               className="text-4xl lg:text-[56px] font-black leading-[1.05] tracking-tight"
               style={{
                 fontFamily: "var(--font-display)",
-                fontVariationSettings: "'opsz' 56, 'SOFT' 0, 'WONK' 0",
+
                 color: "var(--ink-strong)",
               }}
             >
@@ -231,7 +230,7 @@ export default function HomePage() {
                 className="text-4xl lg:text-[56px] font-black leading-[1.05] tracking-tight mb-8"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontVariationSettings: "'opsz' 56, 'SOFT' 0, 'WONK' 0",
+  
                   color: "var(--ink-strong)",
                 }}
               >
@@ -322,7 +321,7 @@ export default function HomePage() {
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(135deg, rgba(14,90,67,0.15) 0%, transparent 60%)",
+                      "linear-gradient(135deg, rgba(30,95,175,0.10) 0%, transparent 60%)",
                   }}
                   aria-hidden="true"
                 />
@@ -345,7 +344,7 @@ export default function HomePage() {
                   className="text-3xl font-black"
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontVariationSettings: "'opsz' 32, 'SOFT' 0, 'WONK' 0",
+    
                     color: "var(--ink-strong)",
                   }}
                 >
@@ -387,7 +386,7 @@ export default function HomePage() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to right, rgba(16,20,24,0.95) 0%, rgba(16,20,24,0.6) 100%)",
+                "linear-gradient(to right, rgba(8,44,86,0.95) 0%, rgba(8,44,86,0.60) 100%)",
             }}
           />
         </div>
@@ -407,7 +406,7 @@ export default function HomePage() {
               className="text-4xl lg:text-[56px] font-black leading-[1.05] tracking-tight mb-8"
               style={{
                 fontFamily: "var(--font-display)",
-                fontVariationSettings: "'opsz' 56, 'SOFT' 0, 'WONK' 0",
+
                 color: "var(--ink-on-dark)",
               }}
             >
@@ -494,7 +493,7 @@ export default function HomePage() {
               className="text-4xl lg:text-[56px] font-black leading-[1.05] tracking-tight mb-6"
               style={{
                 fontFamily: "var(--font-display)",
-                fontVariationSettings: "'opsz' 56, 'SOFT' 0, 'WONK' 0",
+
                 color: "var(--ink-strong)",
               }}
             >
@@ -579,7 +578,7 @@ export default function HomePage() {
           />
           <div
             className="absolute inset-0"
-            style={{ background: "rgba(16,20,24,0.7)" }}
+            style={{ background: "rgba(8,44,86,0.75)" }}
           />
         </div>
 
@@ -600,7 +599,7 @@ export default function HomePage() {
                 className="text-4xl lg:text-[56px] font-black leading-[1.05] tracking-tight"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontVariationSettings: "'opsz' 56, 'SOFT' 0, 'WONK' 0",
+  
                   color: "var(--ink-on-dark)",
                 }}
               >
@@ -677,7 +676,7 @@ export default function HomePage() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(16,20,24,0.65) 0%, rgba(16,20,24,0.85) 100%)",
+                "linear-gradient(to bottom, rgba(8,44,86,0.70) 0%, rgba(8,44,86,0.88) 100%)",
             }}
             aria-hidden="true"
           />
@@ -688,7 +687,6 @@ export default function HomePage() {
             className="text-5xl lg:text-[80px] font-black leading-[1.02] tracking-tight mb-4"
             style={{
               fontFamily: "var(--font-display)",
-              fontVariationSettings: "'opsz' 80, 'SOFT' 0, 'WONK' 0",
               color: "var(--ink-on-dark)",
             }}
           >
@@ -698,7 +696,6 @@ export default function HomePage() {
             className="text-2xl lg:text-4xl font-black tracking-tight mb-12"
             style={{
               fontFamily: "var(--font-display)",
-              fontVariationSettings: "'opsz' 36, 'SOFT' 0, 'WONK' 0",
               color: "var(--brand-accent)",
             }}
           >

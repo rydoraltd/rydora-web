@@ -1,112 +1,107 @@
 @import "tailwindcss";
 @import "../styles/dashboard-tokens.css";
 
-/* ─── EXISTING APP TOKENS ─────────────────────────────────────── */
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
-}
-
 /* ─── RYDORA BRAND TOKENS ─────────────────────────────────────── */
-/* Edit only this block to retheme the entire marketing site.      */
+/* Edit only this block to retheme the entire site.               */
 :root {
-  /* Brand core */
-  --brand-primary: #0E5A43;
-  --brand-primary-strong: #0A4534;
-  --brand-accent: #E8A33D;
+  /* Brand palette (per brand guidelines) */
+  --brand-navy:    #082C56;   /* Midnight Navy  — 60% — structure, backgrounds */
+  --brand-royal:   #1E5FAF;   /* Royal Blue     — 20% — interactive, buttons */
+  --brand-teal:    #3FC4C9;   /* Electric Teal  — 15% — live / verified states */
+  --brand-silver:  #C7CDD6;   /* Silver         —  4% — data, dividers */
+  --brand-gold:    #C9A227;   /* Luxury Gold    —  1% — earnings, value accents */
+
+  /* Semantic aliases */
+  --brand-primary:        var(--brand-royal);  /* interactive elements */
+  --brand-primary-strong: #1A52A0;             /* hover/pressed */
+  --brand-accent:         var(--brand-gold);   /* earnings / milestone highlights */
 
   /* Surfaces */
-  --surface-base: #FAFAF8;
-  --surface-raised: #FFFFFF;
-  --surface-inverse: #101418;
+  --surface-base:    #F4F7FB;  /* Cool light background (navy-tinted neutral) */
+  --surface-raised:  #FFFFFF;
+  --surface-inverse: #082C56;  /* Midnight Navy for dark/night sections */
 
   /* Ink */
-  --ink-strong: #14181D;
-  --ink-body: #3D434C;
-  --ink-muted: #7A828D;
-  --ink-on-dark: #F2F3F1;
+  --ink-strong:   #0D1B2A;          /* Navy-tinted near-black */
+  --ink-body:     #374355;
+  --ink-muted:    #7A8899;
+  --ink-on-dark:  #F2F5F9;
   --ink-on-brand: #FFFFFF;
 
-  /* Lines and states */
-  --line-subtle: #E3E5E2;
-  --state-success: #1D7A4F;
-  --state-warning: #C77A1E;
-  --state-error: #B3403A;
+  /* Lines & states */
+  --line-subtle:    #D4DCE8;          /* Cool gray matching navy system */
+  --state-success:  #1D7A4F;
+  --state-warning:  #C77A1E;
+  --state-error:    #B3403A;
 
-  /* Image treatment — RGB triplet for rgba() overlays */
-  --img-overlay: 16 20 24;
-  --img-overlay-opacity: 0.38;
+  /* Image overlay (navy-tinted) */
+  --img-overlay:         8 44 86;
+  --img-overlay-opacity: 0.70;
 
   /* Motion */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* Night scene: swap surface/ink by adding data-scene="night" to any section */
+/* Night scene: navy becomes the base */
 [data-scene="night"] {
-  --surface-base: var(--surface-inverse);
-  --surface-raised: #1A1F25;
-  --ink-strong: var(--ink-on-dark);
-  --ink-body: rgba(242, 243, 241, 0.72);
-  --ink-muted: rgba(242, 243, 241, 0.45);
-  --line-subtle: rgba(242, 243, 241, 0.12);
+  --surface-base:   var(--surface-inverse);
+  --surface-raised: #0F3E7A;
+  --ink-strong:     var(--ink-on-dark);
+  --ink-body:       rgba(242, 245, 249, 0.72);
+  --ink-muted:      rgba(242, 245, 249, 0.45);
+  --line-subtle:    rgba(242, 245, 249, 0.12);
 }
 
 /* ─── TAILWIND TOKEN MAPPING ──────────────────────────────────── */
 @theme inline {
+  --color-background: var(--surface-base);
+  --color-foreground: var(--ink-strong);
+
   /* Brand colors */
-  --color-primary: var(--brand-primary);
+  --color-primary:        var(--brand-royal);
   --color-primary-strong: var(--brand-primary-strong);
-  --color-accent: var(--brand-accent);
+  --color-navy:           var(--brand-navy);
+  --color-teal:           var(--brand-teal);
+  --color-silver:         var(--brand-silver);
+  --color-accent:         var(--brand-accent);
 
   /* Surface colors */
-  --color-surface-base: var(--surface-base);
-  --color-surface-raised: var(--surface-raised);
+  --color-surface-base:    var(--surface-base);
+  --color-surface-raised:  var(--surface-raised);
   --color-surface-inverse: var(--surface-inverse);
 
   /* Ink colors */
-  --color-ink-strong: var(--ink-strong);
-  --color-ink-body: var(--ink-body);
-  --color-ink-muted: var(--ink-muted);
-  --color-ink-on-dark: var(--ink-on-dark);
+  --color-ink-strong:   var(--ink-strong);
+  --color-ink-body:     var(--ink-body);
+  --color-ink-muted:    var(--ink-muted);
+  --color-ink-on-dark:  var(--ink-on-dark);
   --color-ink-on-brand: var(--ink-on-brand);
 
   /* Structural */
-  --color-line-subtle: var(--line-subtle);
+  --color-line-subtle:   var(--line-subtle);
   --color-state-success: var(--state-success);
   --color-state-warning: var(--state-warning);
-  --color-state-error: var(--state-error);
+  --color-state-error:   var(--state-error);
 
-  /* Marketing fonts — set by next/font in marketing layout */
-  --font-display: var(--font-fraunces), Georgia, serif;
-  --font-body: var(--font-dm-sans), system-ui, sans-serif;
-  --font-data: var(--font-ibm-plex-mono), "Courier New", monospace;
+  /* Fonts — loaded via next/font in root layout */
+  --font-display: var(--font-poppins), system-ui, sans-serif;  /* Poppins — headlines */
+  --font-body:    var(--font-inter), system-ui, sans-serif;     /* Inter   — body / UI */
+  --font-data:    var(--font-inter), system-ui, sans-serif;     /* Inter   — data / captions */
+  --font-sans:    var(--font-inter), system-ui, sans-serif;
+  --font-mono:    ui-monospace, "Courier New", monospace;
 }
 
-/* ─── GLOBAL RESETS FOR MARKETING ────────────────────────────── */
+/* ─── GLOBAL RESETS ───────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+body {
+  background: var(--surface-base);
+  color: var(--ink-body);
+  font-family: var(--font-inter, system-ui, -apple-system, sans-serif);
+  overflow-x: hidden;
 }
 
 img, video {
@@ -116,31 +111,18 @@ img, video {
 
 /* ─── HERO ENTRANCE ANIMATION ────────────────────────────────── */
 @keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.anim-fade-up {
-  animation: fade-up 0.9s var(--ease-out-expo) both;
-}
-
+.anim-fade-up { animation: fade-up 0.9s var(--ease-out-expo) both; }
 .anim-delay-1 { animation-delay: 0.1s; }
 .anim-delay-2 { animation-delay: 0.25s; }
 .anim-delay-3 { animation-delay: 0.4s; }
 .anim-delay-4 { animation-delay: 0.6s; }
 
 @media (prefers-reduced-motion: reduce) {
-  .anim-fade-up {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
+  .anim-fade-up { animation: none; opacity: 1; transform: none; }
 }
 
 /* ─── IMAGE OVERLAY UTILITY ──────────────────────────────────── */
@@ -152,20 +134,13 @@ img, video {
   pointer-events: none;
 }
 
-/* ─── FOCUS STATES (ACCESSIBLE) ─────────────────────────────── */
+/* ─── FOCUS STATES ───────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--brand-accent);
+  outline: 2px solid var(--brand-royal);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
 /* ─── SMOOTH SCROLL ──────────────────────────────────────────── */
-html {
-  scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

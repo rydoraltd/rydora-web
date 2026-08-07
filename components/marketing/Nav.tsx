@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -33,7 +34,6 @@ export default function Nav() {
     };
   }, [menuOpen]);
 
-  // Close on Escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMenuOpen(false);
@@ -43,36 +43,30 @@ export default function Nav() {
   }, []);
 
   const toggle = () => setMenuOpen((v) => !v);
+  const light = scrolled || lightTop;
 
   return (
     <>
       <header
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          backgroundColor: scrolled || lightTop ? "rgba(250,250,248,0.95)" : "transparent",
-          backdropFilter: scrolled || lightTop ? "blur(12px)" : "none",
-          borderBottom: scrolled || lightTop
+          backgroundColor: light ? "rgba(244,247,251,0.96)" : "transparent",
+          backdropFilter: light ? "blur(12px)" : "none",
+          borderBottom: light
             ? "1px solid var(--line-subtle)"
             : "1px solid transparent",
         }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2" aria-label="Rydora home">
-            <span
-              className="text-xl font-black tracking-tight"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontVariationSettings: "'opsz' 20, 'SOFT' 0, 'WONK' 0",
-                color: scrolled || lightTop ? "var(--ink-strong)" : "var(--ink-on-dark)",
-              }}
-            >
-              Rydora
-            </span>
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: "var(--brand-accent)" }}
-              aria-hidden="true"
+          <Link href="/" aria-label="Rydora home">
+            <Image
+              src={light ? "/images/Logo origin.png" : "/images/Logo white.png"}
+              alt="Rydora"
+              height={50}
+              width={50}
+              className="object-contain"
+              priority
             />
           </Link>
 
@@ -85,7 +79,7 @@ export default function Nav() {
                 className="text-sm font-medium transition-colors duration-200"
                 style={{
                   fontFamily: "var(--font-body)",
-                  color: scrolled || lightTop ? "var(--ink-body)" : "rgba(242,243,241,0.8)",
+                  color: light ? "var(--ink-body)" : "rgba(242,245,249,0.8)",
                 }}
               >
                 {l.label}
@@ -100,7 +94,7 @@ export default function Nav() {
               className="text-sm font-medium transition-colors duration-200"
               style={{
                 fontFamily: "var(--font-body)",
-                color: scrolled || lightTop ? "var(--ink-body)" : "rgba(242,243,241,0.8)",
+                color: light ? "var(--ink-body)" : "rgba(242,245,249,0.8)",
               }}
             >
               Sign in
@@ -129,21 +123,21 @@ export default function Nav() {
             <span
               className="block w-6 h-0.5 rounded-full transition-transform duration-200"
               style={{
-                backgroundColor: scrolled || lightTop ? "var(--ink-strong)" : "var(--ink-on-dark)",
+                backgroundColor: light ? "var(--ink-strong)" : "var(--ink-on-dark)",
                 transform: menuOpen ? "rotate(45deg) translate(0, 8px)" : "none",
               }}
             />
             <span
               className="block w-6 h-0.5 rounded-full transition-opacity duration-200"
               style={{
-                backgroundColor: scrolled || lightTop ? "var(--ink-strong)" : "var(--ink-on-dark)",
+                backgroundColor: light ? "var(--ink-strong)" : "var(--ink-on-dark)",
                 opacity: menuOpen ? 0 : 1,
               }}
             />
             <span
               className="block w-6 h-0.5 rounded-full transition-transform duration-200"
               style={{
-                backgroundColor: scrolled || lightTop ? "var(--ink-strong)" : "var(--ink-on-dark)",
+                backgroundColor: light ? "var(--ink-strong)" : "var(--ink-on-dark)",
                 transform: menuOpen ? "rotate(-45deg) translate(0, -8px)" : "none",
               }}
             />
@@ -151,7 +145,7 @@ export default function Nav() {
         </div>
       </header>
 
-      {/* Mobile drawer — CSS transition, no Framer Motion to avoid React 19 SSR issues */}
+      {/* Mobile drawer */}
       <div
         id="mobile-menu"
         ref={drawerRef}
@@ -178,7 +172,6 @@ export default function Nav() {
                   fontFamily: "var(--font-display)",
                   color: "var(--ink-on-dark)",
                   borderColor: "var(--line-subtle)",
-                  fontVariationSettings: "'opsz' 40, 'SOFT' 0, 'WONK' 0",
                 }}
               >
                 {l.label}

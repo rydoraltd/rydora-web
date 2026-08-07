@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -63,7 +63,7 @@ export default function AboutPage() {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to top, rgba(16,20,24,0.96) 0%, rgba(16,20,24,0.5) 55%, rgba(16,20,24,0.15) 100%)",
+                "linear-gradient(to top, rgba(8,44,86,0.96) 0%, rgba(8,44,86,0.55) 55%, rgba(8,44,86,0.15) 100%)",
             }}
             aria-hidden="true"
           />
@@ -83,7 +83,6 @@ export default function AboutPage() {
             className="text-5xl lg:text-[72px] font-black leading-[1.04] tracking-tight max-w-3xl"
             style={{
               fontFamily: "var(--font-display)",
-              fontVariationSettings: "'opsz' 72, 'SOFT' 0, 'WONK' 0",
               color: "var(--ink-on-dark)",
             }}
           >
@@ -225,7 +224,6 @@ export default function AboutPage() {
               className="text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight"
               style={{
                 fontFamily: "var(--font-display)",
-                fontVariationSettings: "'opsz' 48, 'SOFT' 0, 'WONK' 0",
                 color: "var(--ink-on-dark)",
               }}
             >
@@ -250,7 +248,6 @@ export default function AboutPage() {
                   className="text-xl font-black mb-4"
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontVariationSettings: "'opsz' 20, 'SOFT' 0, 'WONK' 0",
                     color: "var(--ink-on-dark)",
                   }}
                 >
@@ -283,7 +280,6 @@ export default function AboutPage() {
               className="text-4xl lg:text-6xl font-black leading-[1.05] tracking-tight mb-8"
               style={{
                 fontFamily: "var(--font-display)",
-                fontVariationSettings: "'opsz' 60, 'SOFT' 0, 'WONK' 0",
                 color: "var(--ink-strong)",
               }}
             >

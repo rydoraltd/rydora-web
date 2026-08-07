@@ -1,10 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { api } from "@/lib/api";
 import { naira } from "@/lib/format";
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
+
+const API_ORIGIN =
+  typeof process !== "undefined" && process.env.NEXT_PUBLIC_API_URL
+    ? process.env.NEXT_PUBLIC_API_URL.replace("/api/v1", "")
+    : "http://localhost:5000";
+
+function resolveUrl(path: string | undefined | null): string | null {
+  if (!path) return null;
+  return path.startsWith("http") ? path : `${API_ORIGIN}${path}`;
+}
 
 interface VehicleRow {
   _id: string;
@@ -13,6 +24,7 @@ interface VehicleRow {
   year: number;
   plateNumber: string;
   status: string;
+  photos: string[];
   weeklyRemittanceTargetKobo: number;
   fundingTargetKobo: number;
   fundedKobo: number;
@@ -200,7 +212,7 @@ export default function FleetPage() {
       {showForm && (
         <form
           onSubmit={handleAdd}
-          className="mb-6 border border-[var(--rd-line)] bg-[var(--rd-panel)] p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+          className="mb-6 border border-[var(--rd-line)] bg-[var(--rd-panel)] p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 rounded-xl shadow-[var(--rd-shadow-sm)]"
         >
           <h2 className="col-span-full text-sm font-semibold text-[var(--rd-ink)] mb-1">New vehicle</h2>
 
@@ -266,20 +278,20 @@ export default function FleetPage() {
       {error ? <p className="text-sm text-[var(--rd-error)] mb-4">{error}</p> : null}
 
       {rows.length === 0 ? (
-        <p className="text-sm text-[var(--rd-ink-muted)] border border-[var(--rd-line)] bg-[var(--rd-panel)] p-8 text-center">
+        <p className="text-sm text-[var(--rd-ink-muted)] border border-[var(--rd-line)] bg-[var(--rd-panel)] p-8 text-center rounded-xl">
           No vehicles registered yet. Use the button above to add your first vehicle.
         </p>
       ) : (
-        <div className="border border-[var(--rd-line)] bg-[var(--rd-panel)] overflow-x-auto">
+        <div className="border border-[var(--rd-line)] bg-[var(--rd-panel)] overflow-x-auto rounded-xl shadow-[var(--rd-shadow-sm)]">
           <table className="min-w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--rd-line)]">
-                {["Vehicle", "Plate", "Status", "Driver", "Investor", "Weekly target", "Funding", "Actions"].map((h) => (
+                {["photo", "Vehicle", "Plate", "Status", "Driver", "Investor", "Weekly target", "Funding", "Actions", "link"].map((h) => (
                   <th
                     key={h}
                     className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]"
                   >
-                    {h}
+                    {h === "photo" || h === "link" ? "" : h}
                   </th>
                 ))}
               </tr>
@@ -296,6 +308,24 @@ export default function FleetPage() {
 
                 return (
                   <tr key={v._id} className="border-b border-[var(--rd-line)] last:border-b-0 hover:bg-[var(--rd-surface)]">
+                    {/* Photo thumbnail */}
+                    <td className="pl-4 pr-2 py-2">
+                      <div className="w-14 h-10 rounded-lg overflow-hidden bg-[var(--rd-surface)] border border-[var(--rd-line)] shrink-0">
+                        {resolveUrl(v.photos?.[0]) ? (
+                          <img
+                            src={resolveUrl(v.photos[0])!}
+                            alt=""
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-[var(--rd-ink-muted)]/30">
+                              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                    </td>
                     <td className="px-4 py-3">
                       <span className="font-medium text-[var(--rd-ink)]">
                         {v.make} {v.model}{" "}
@@ -324,8 +354,8 @@ export default function FleetPage() {
                     <td className="px-4 py-3">
                       {fundPct !== null ? (
                         <div>
-                          <div className="h-1 w-24 bg-[var(--rd-surface)] overflow-hidden">
-                            <div className="h-full bg-[var(--rd-primary)]" style={{ width: `${fundPct}%` }} />
+                          <div className="h-1.5 w-24 bg-[var(--rd-surface)] overflow-hidden rounded-full">
+                            <div className="h-full bg-[var(--rd-primary)] rounded-full" style={{ width: `${fundPct}%` }} />
                           </div>
                           <span className="text-[10px] text-[var(--rd-ink-muted)]">{fundPct}%</span>
                         </div>
@@ -369,6 +399,14 @@ export default function FleetPage() {
                         )}
                       </div>
                     </td>
+                    <td className="px-4 py-3">
+                      <Link
+                        href={`/fleet/${v._id}`}
+                        className="px-2.5 py-1.5 rounded-lg text-[11px] font-medium border border-[var(--rd-line)] text-[var(--rd-primary)] hover:bg-blue-50 transition-colors whitespace-nowrap"
+                      >
+                        View details
+                      </Link>
+                    </td>
                   </tr>
                 );
               })}
@@ -380,7 +418,7 @@ export default function FleetPage() {
       {/* Assign driver modal */}
       {assignTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-[var(--rd-panel)] border border-[var(--rd-line)] w-full max-w-md p-6">
+          <div className="bg-[var(--rd-panel)] border border-[var(--rd-line)] w-full max-w-md p-6 rounded-xl shadow-[var(--rd-shadow-md)]">
             <h2 className="text-sm font-semibold text-[var(--rd-ink)] mb-1">
               Assign driver to {assignTarget.make} {assignTarget.model} ({assignTarget.plateNumber})
             </h2>
@@ -397,7 +435,7 @@ export default function FleetPage() {
                     No available drivers found. Approve a driver first from the Approvals page.
                   </p>
                 ) : (
-                  <div className="mb-4 max-h-48 overflow-y-auto border border-[var(--rd-line)]">
+                  <div className="mb-4 max-h-48 overflow-y-auto border border-[var(--rd-line)] rounded-lg">
                     {drivers.map((d) => (
                       <label
                         key={d._id}

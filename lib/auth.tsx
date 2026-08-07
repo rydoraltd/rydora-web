@@ -10,8 +10,11 @@ export interface SessionUser {
   firstName: string;
   lastName: string;
   email: string;
+  phone?: string;
   role: Role;
   status: string;
+  kycStatus?: string;
+  avatarUrl?: string | null;
 }
 
 interface AuthCtx {
@@ -19,9 +22,16 @@ interface AuthCtx {
   loading: boolean;
   login: (email: string, password: string) => Promise<SessionUser>;
   logout: () => void;
+  refreshUser: () => Promise<void>;
 }
 
-const Ctx = createContext<AuthCtx>({ user: null, loading: true, login: async () => { throw new Error(); }, logout: () => {} });
+const Ctx = createContext<AuthCtx>({
+  user: null,
+  loading: true,
+  login: async () => { throw new Error(); },
+  logout: () => {},
+  refreshUser: async () => {},
+});
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<SessionUser | null>(null);
@@ -56,13 +66,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return json.data.user as SessionUser;
   }
 
+  async function refreshUser() {
+    try {
+      const u = await api<SessionUser>("/auth/me", { retry: false });
+      setUser(u);
+      localStorage.setItem("rd_user", JSON.stringify(u));
+    } catch {}
+  }
+
   function logout() {
     clearTokens();
     setUser(null);
     window.location.href = "/login";
   }
 
-  return <Ctx.Provider value={{ user, loading, login, logout }}>{children}</Ctx.Provider>;
+  return <Ctx.Provider value={{ user, loading, login, logout, refreshUser }}>{children}</Ctx.Provider>;
 }
 
 export const useAuth = () => useContext(Ctx);
