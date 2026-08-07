@@ -378,7 +378,7 @@ export function Sidebar() {
         "flex flex-col bg-[var(--rd-panel)] border-r border-[var(--rd-line)]",
         "fixed inset-y-0 left-0 z-50 w-72 transition-transform duration-200",
         mobileOpen ? "translate-x-0" : "-translate-x-full",
-        "md:relative md:inset-auto md:z-auto md:translate-x-0 md:min-h-screen md:w-56",
+        "md:relative md:inset-auto md:z-auto md:translate-x-0 md:h-full md:w-56",
       ].join(" ")}>
 
         {/* Logo header */}

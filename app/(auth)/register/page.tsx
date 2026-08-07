@@ -109,12 +109,21 @@ function RegisterForm() {
   }
 
   return (
-    <main className="min-h-screen flex">
-      {/* Left panel — dark brand hero */}
+    <main className="h-screen overflow-hidden flex">
+      {/* Left panel — background image hero, fixed height */}
       <div
         className="hidden lg:flex lg:w-[42%] relative overflow-hidden flex-col justify-between p-12"
-        style={{ background: "linear-gradient(145deg, #050c18 0%, #0a1a2e 55%, #061016 100%)" }}
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
+        {/* Dark overlay for text readability */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "linear-gradient(145deg, rgba(5,12,24,0.88) 0%, rgba(10,26,46,0.82) 55%, rgba(6,16,22,0.88) 100%)" }}
+        />
         <div
           className="absolute right-0 top-0 w-96 h-96 rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle, rgba(63,196,201,0.12) 0%, transparent 65%)" }}
@@ -140,7 +149,7 @@ function RegisterForm() {
         </div>
       </div>
 
-      {/* Right panel — form */}
+      {/* Right panel — scrollable form */}
       <div className="flex-1 flex flex-col justify-center px-8 lg:px-14 py-12 bg-white overflow-y-auto">
         <div className="w-full max-w-lg mx-auto">
           <div className="mb-6">

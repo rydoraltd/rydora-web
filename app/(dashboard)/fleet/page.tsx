@@ -286,12 +286,12 @@ export default function FleetPage() {
           <table className="min-w-full text-sm">
             <thead>
               <tr className="border-b border-[var(--rd-line)]">
-                {["", "Vehicle", "Plate", "Status", "Driver", "Investor", "Weekly target", "Funding", "Actions", ""].map((h) => (
+                {["photo", "Vehicle", "Plate", "Status", "Driver", "Investor", "Weekly target", "Funding", "Actions", "link"].map((h) => (
                   <th
                     key={h}
                     className="px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--rd-ink-muted)]"
                   >
-                    {h}
+                    {h === "photo" || h === "link" ? "" : h}
                   </th>
                 ))}
               </tr>

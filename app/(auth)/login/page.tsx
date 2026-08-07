@@ -43,12 +43,21 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen flex">
-      {/* Left panel — dark brand hero */}
+    <main className="h-screen overflow-hidden flex">
+      {/* Left panel — background image hero, fixed height */}
       <div
         className="hidden lg:flex lg:w-[58%] relative overflow-hidden flex-col justify-between p-12"
-        style={{ background: "linear-gradient(145deg, #060d1a 0%, #091828 55%, #07111f 100%)" }}
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
+        {/* Dark overlay for text readability */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "linear-gradient(145deg, rgba(6,13,26,0.88) 0%, rgba(9,24,40,0.82) 55%, rgba(7,17,31,0.88) 100%)" }}
+        />
         {/* Ambient glows */}
         <div
           className="absolute -right-40 -top-40 w-[520px] h-[520px] rounded-full pointer-events-none"
@@ -77,8 +86,8 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right panel — form */}
-      <div className="flex-1 flex flex-col justify-center px-8 lg:px-16 bg-white min-h-screen">
+      {/* Right panel — scrollable form */}
+      <div className="flex-1 flex flex-col justify-center px-8 lg:px-16 bg-white overflow-y-auto">
         <div className="w-full max-w-sm mx-auto">
           {/* Mobile logo */}
           <div className="mb-8 lg:hidden">
