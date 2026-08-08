@@ -76,7 +76,7 @@ export default function LoginPage() {
         {/* Bottom quote */}
         <div className="relative z-10">
           <blockquote className="text-white/90 text-xl font-medium leading-relaxed max-w-md">
-            &ldquo;We&rsquo;re transforming how Africa moves, connecting technology, drivers, and investors through a transparent, data-driven system&rdquo;
+            &ldquo;Redefining mobility across Africa by connecting people, technology, vehicles, and investment through one intelligent, transparent ecosystem.&rdquo;
           </blockquote>
           <div className="flex gap-2 mt-6">
             <span className="w-5 h-1 rounded-full bg-white/25" />
