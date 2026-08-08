@@ -139,7 +139,7 @@ function RegisterForm() {
 
         <div className="relative z-10">
           <blockquote className="text-white/90 text-xl font-medium leading-relaxed max-w-sm">
-            &ldquo;At Rydora, every vehicle is more than transportation, it’s an opportunity to create value, generate returns, and drive progress&rdquo;
+            &ldquo;At Rydora, every vehicle is more than transportation, it&rsquo;s an opportunity to create value, generate returns, and drive progress&rdquo;
           </blockquote>
           <div className="flex gap-2 mt-6">
             <span className="w-5 h-1 rounded-full bg-white/25" />
