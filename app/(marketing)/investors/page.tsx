@@ -256,11 +256,10 @@ export default function InvestorsPage() {
                 Dashboard preview
               </p>
               {[
-                { label: "Gross trips revenue", value: "₦310,000" },
-                { label: "Rydora platform fee (20%)", value: "-₦62,000" },
-                { label: "Maintenance deductions", value: "-₦18,000" },
-                { label: "Driver share (60%)", value: "-₦138,000" },
-                { label: "Owner payout", value: "₦92,000", bold: true },
+                { label: "Gross trips revenue", value: "₦400,000" },
+                { label: "Rydora platform fee (30%)", value: "-₦120,000" },
+                { label: "Maintenance deductions (20%)", value: "-₦80,000" },
+                { label: "Owner payout (50%)", value: "₦200,000", bold: true },
               ].map((row) => (
                 <div
                   key={row.label}
