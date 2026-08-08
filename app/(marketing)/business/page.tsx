@@ -355,7 +355,7 @@ export default function BusinessPage() {
                     className="text-sm"
                     style={{
                       fontFamily: "var(--font-body)",
-                      color: "var(--ink-strong)",
+                      color: "var(--ink-white)",
                     }}
                   >
                     {row.label}
