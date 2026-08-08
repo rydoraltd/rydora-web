@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useAuth, homeForRole } from "@/lib/auth";
+import { AuthSlider } from "@/components/auth/AuthSlider";
 
 function EyeIcon({ open }: { open: boolean }) {
   return open ? (
@@ -21,7 +22,7 @@ function EyeIcon({ open }: { open: boolean }) {
 }
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { user, loading, login } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,12 +30,19 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
+  // Redirect already-authenticated users straight to their portal
+  useEffect(() => {
+    if (!loading && user) {
+      router.replace(homeForRole(user.role));
+    }
+  }, [user, loading, router]);
+
   async function handleSubmit() {
     setBusy(true);
     setError(null);
     try {
-      const user = await login(email, password);
-      router.replace(homeForRole(user.role));
+      const u = await login(email, password);
+      router.replace(homeForRole(u.role));
     } catch (e) {
       setError(e instanceof Error ? e.message : "Sign in failed");
     } finally {
@@ -42,62 +50,24 @@ export default function LoginPage() {
     }
   }
 
+  // Don't flash the form while checking session or while redirect is in flight
+  if (loading || (!loading && user)) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-white">
+        <div className="w-6 h-6 rounded-full border-2 border-[var(--rd-primary)] border-t-transparent animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <main className="h-screen overflow-hidden flex">
-      {/* Left panel — background image hero, fixed height */}
-      <div
-        className="hidden lg:flex lg:w-[58%] relative overflow-hidden flex-col justify-between p-12"
-        style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        {/* Dark overlay for text readability */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: "linear-gradient(145deg, rgba(6,13,26,0.88) 0%, rgba(9,24,40,0.82) 55%, rgba(7,17,31,0.88) 100%)" }}
-        />
-        {/* Ambient glows */}
-        <div
-          className="absolute -right-40 -top-40 w-[520px] h-[520px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, rgba(30,95,175,0.18) 0%, transparent 65%)" }}
-        />
-        <div
-          className="absolute -left-24 bottom-10 w-80 h-80 rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, rgba(63,196,201,0.10) 0%, transparent 65%)" }}
-        />
-
-        {/* Top logo */}
-        <div className="relative z-10">
-          <Image src="/images/Logo white.png" alt="Rydora" height={36} width={36} className="object-contain" />
-        </div>
-
-        {/* Bottom quote */}
-        <div className="relative z-10">
-          <blockquote className="text-white/90 text-xl font-medium leading-relaxed max-w-md">
-            &ldquo;Redefining mobility across Africa by connecting people, technology, vehicles, and investment through one intelligent, transparent ecosystem.&rdquo;
-          </blockquote>
-          <div className="flex gap-2 mt-6">
-            <span className="w-5 h-1 rounded-full bg-white/25" />
-            <span className="w-5 h-1 rounded-full bg-[var(--rd-primary)]" />
-            <span className="w-5 h-1 rounded-full bg-white/25" />
-          </div>
-        </div>
-      </div>
+      <AuthSlider className="lg:w-[58%]" />
 
       {/* Right panel — scrollable form */}
       <div className="flex-1 flex flex-col justify-center px-8 lg:px-16 bg-white overflow-y-auto">
         <div className="w-full max-w-sm mx-auto">
-          {/* Mobile logo */}
-          <div className="mb-8 lg:hidden">
-            <Link href="/">
-              <Image src="/images/Logo origin.png" alt="Rydora" height={36} width={36} className="object-contain" />
-            </Link>
-          </div>
-
-          {/* Desktop: show logo top */}
-          <div className="hidden lg:block mb-8">
+          {/* Logo — links to home (mobile + desktop) */}
+          <div className="mb-8">
             <Link href="/">
               <Image src="/images/Logo origin.png" alt="Rydora" height={36} width={36} className="object-contain" />
             </Link>
@@ -118,7 +88,7 @@ export default function LoginPage() {
           </p>
 
           <div className="mt-8 space-y-4">
-            {/* Email field */}
+            {/* Email */}
             <div>
               <label className="block text-xs font-medium text-[var(--rd-ink-muted)] mb-1.5">
                 Username
@@ -135,7 +105,7 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* Password field */}
+            {/* Password */}
             <div>
               <label className="block text-xs font-medium text-[var(--rd-ink-muted)] mb-1.5">
                 Password
@@ -186,7 +156,7 @@ export default function LoginPage() {
             </p>
             <p className="text-sm text-[var(--rd-ink-muted)]">
               Forgot Password?{" "}
-              <Link href="/register" className="font-medium text-[var(--rd-primary)] hover:underline">
+              <Link href="/forgot-password" className="font-medium text-[var(--rd-primary)] hover:underline">
                 Reset here
               </Link>
             </p>

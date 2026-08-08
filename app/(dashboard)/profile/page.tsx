@@ -25,12 +25,13 @@ export default function ProfilePage() {
   const [success, setSuccess] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  // Delete account state
+  // Deletion request state
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletePassword, setDeletePassword] = useState("");
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [deleteShowPw, setDeleteShowPw] = useState(false);
   const [deleteBusy, setDeleteBusy] = useState(false);
+  const [deletionRequested, setDeletionRequested] = useState(false);
 
   if (!user) return null;
 
@@ -44,8 +45,8 @@ export default function ProfilePage() {
     setDeleteError(null);
     try {
       const access = typeof window !== "undefined" ? localStorage.getItem("rd_access") : null;
-      const res = await fetch(`${API_BASE}/auth/account`, {
-        method: "DELETE",
+      const res = await fetch(`${API_BASE}/auth/account/deletion-request`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           ...(access ? { Authorization: `Bearer ${access}` } : {}),
@@ -53,11 +54,12 @@ export default function ProfilePage() {
         body: JSON.stringify({ password: deletePassword }),
       });
       const json = await res.json();
-      if (!res.ok || json.success === false) throw new Error(json.message || "Deletion failed");
-      clearTokens();
-      window.location.href = "/login";
+      if (!res.ok || json.success === false) throw new Error(json.message || "Request failed");
+      setShowDeleteModal(false);
+      setDeletionRequested(true);
     } catch (err) {
-      setDeleteError(err instanceof Error ? err.message : "Deletion failed");
+      setDeleteError(err instanceof Error ? err.message : "Request failed");
+    } finally {
       setDeleteBusy(false);
     }
   }
@@ -214,16 +216,24 @@ export default function ProfilePage() {
             <div className="px-5 py-4 flex items-center justify-between gap-4">
               <div className="min-w-0">
                 <p className="text-sm font-medium text-[var(--rd-ink)]">Delete account</p>
-                <p className="text-xs text-[var(--rd-ink-muted)] mt-0.5 leading-relaxed">
-                  Permanently remove your account and all associated data. This cannot be undone.
-                </p>
+                {deletionRequested ? (
+                  <p className="text-xs text-amber-700 mt-0.5 leading-relaxed">
+                    Deletion request submitted — pending admin approval. You will be notified once a decision is made.
+                  </p>
+                ) : (
+                  <p className="text-xs text-[var(--rd-ink-muted)] mt-0.5 leading-relaxed">
+                    Request permanent removal of your account. This requires admin approval before taking effect.
+                  </p>
+                )}
               </div>
-              <button
-                onClick={() => { setShowDeleteModal(true); setDeleteError(null); setDeletePassword(""); }}
-                className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium text-[var(--rd-error)] border border-red-200 hover:bg-red-50 transition-colors"
-              >
-                Delete account
-              </button>
+              {!deletionRequested && (
+                <button
+                  onClick={() => { setShowDeleteModal(true); setDeleteError(null); setDeletePassword(""); }}
+                  className="shrink-0 px-4 py-2 rounded-lg text-sm font-medium text-[var(--rd-error)] border border-red-200 hover:bg-red-50 transition-colors"
+                >
+                  Request deletion
+                </button>
+              )}
             </div>
           </div>
         )}
@@ -251,9 +261,9 @@ export default function ProfilePage() {
                   </svg>
                 </button>
               </div>
-              <h2 className="mt-3 text-base font-semibold text-[var(--rd-ink)]">Delete your account?</h2>
+              <h2 className="mt-3 text-base font-semibold text-[var(--rd-ink)]">Request account deletion?</h2>
               <p className="mt-1.5 text-sm text-[var(--rd-ink-muted)] leading-relaxed">
-                This will permanently delete your Rydora account and cannot be reversed. All your data will be removed.
+                This submits a deletion request to our admin team. Your account will only be removed after they review and approve it.
               </p>
               {user.role === "investor" && (
                 <div className="mt-3 flex gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2.5">
@@ -313,7 +323,7 @@ export default function ProfilePage() {
                   disabled={deleteBusy || !deletePassword}
                   className="flex-1 py-2.5 rounded-lg text-sm font-semibold text-white bg-[var(--rd-error)] hover:opacity-90 disabled:opacity-50 transition-opacity"
                 >
-                  {deleteBusy ? "Deleting…" : "Yes, delete my account"}
+                  {deleteBusy ? "Submitting…" : "Submit request"}
                 </button>
               </div>
             </form>

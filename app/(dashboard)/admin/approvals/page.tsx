@@ -209,7 +209,129 @@ function KycReviewModal({
   );
 }
 
+// ─── Deletion requests ────────────────────────────────────────────────────────
+
+interface DeletionRequest {
+  _id: string;
+  userId: string;
+  user: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    role: string;
+  };
+  status: "pending" | "approved" | "rejected";
+  requestedAt: string;
+}
+
+function DeletionSection() {
+  const [requests, setRequests] = useState<DeletionRequest[]>([]);
+  const [busyId, setBusyId]     = useState<string | null>(null);
+  const [error, setError]       = useState<string | null>(null);
+  const [confirmItem, setConfirmItem] = useState<DeletionRequest | null>(null);
+
+  const load = useCallback(() => {
+    api<{ items: DeletionRequest[] }>("/admin/deletion-requests")
+      .then((d) => setRequests(d.items))
+      .catch((e) => setError(e.message));
+  }, []);
+
+  useEffect(load, [load]);
+
+  async function decide(req: DeletionRequest, action: "approve" | "reject") {
+    setBusyId(req._id);
+    setError(null);
+    setConfirmItem(null);
+    try {
+      await api(`/admin/deletion-requests/${req._id}/${action}`, { method: "POST", body: {} });
+      load();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Action failed");
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  const columns: Column<DeletionRequest>[] = [
+    {
+      key: "name", header: "User",
+      render: (r) => <span className="font-medium">{r.user.firstName} {r.user.lastName}</span>,
+    },
+    { key: "email", header: "Email", render: (r) => <span className="text-[var(--rd-ink-muted)]">{r.user.email}</span> },
+    { key: "role", header: "Role", render: (r) => titleCase(r.user.role) },
+    { key: "date", header: "Requested", render: (r) => shortDate(r.requestedAt) },
+    {
+      key: "actions", header: "", align: "right",
+      render: (r) => (
+        <button
+          onClick={() => setConfirmItem(r)}
+          disabled={busyId === r._id}
+          className="px-3 py-1.5 rounded-lg text-xs font-medium border border-[var(--rd-line)] text-[var(--rd-ink-muted)] hover:border-[var(--rd-error)] hover:text-[var(--rd-error)] transition-colors disabled:opacity-50"
+        >
+          Review
+        </button>
+      ),
+    },
+  ];
+
+  return (
+    <div>
+      {error && <p className="text-sm text-[var(--rd-error)] mb-4">{error}</p>}
+      <DataTable columns={columns} rows={requests} emptyText="No pending deletion requests." />
+
+      {/* Confirm modal */}
+      {confirmItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6">
+            <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mb-4">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-[var(--rd-error)]">
+                <polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" /><path d="M10 11v6M14 11v6" /><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+              </svg>
+            </div>
+            <h2 className="text-base font-semibold text-[var(--rd-ink)]">Account Deletion Request</h2>
+            <p className="mt-1.5 text-sm text-[var(--rd-ink-muted)] leading-relaxed">
+              <span className="font-medium text-[var(--rd-ink)]">{confirmItem.user.firstName} {confirmItem.user.lastName}</span>{" "}
+              ({confirmItem.user.email}) has requested their account be permanently deleted.
+            </p>
+            <p className="mt-2 text-xs text-amber-700 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2 leading-relaxed">
+              Approving will permanently delete the user's account and all associated data. This cannot be reversed.
+            </p>
+            <div className="flex gap-3 mt-5">
+              <button
+                onClick={() => setConfirmItem(null)}
+                className="flex-1 py-2.5 rounded-lg text-sm font-medium border border-[var(--rd-line)] text-[var(--rd-ink-body)] hover:bg-[var(--rd-surface)] transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => decide(confirmItem, "reject")}
+                disabled={!!busyId}
+                className="flex-1 py-2.5 rounded-lg text-sm font-medium border border-[var(--rd-line)] text-[var(--rd-ink-muted)] hover:border-[var(--rd-primary)] hover:text-[var(--rd-primary)] disabled:opacity-50 transition-colors"
+              >
+                Reject
+              </button>
+              <button
+                onClick={() => decide(confirmItem, "approve")}
+                disabled={!!busyId}
+                className="flex-1 py-2.5 rounded-lg text-sm font-semibold text-white bg-[var(--rd-error)] hover:opacity-90 disabled:opacity-50 transition-opacity"
+              >
+                {busyId ? "…" : "Approve"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
+type Tab = "kyc" | "deletions";
+
 export default function ApprovalsPage() {
+  const [tab, setTab]           = useState<Tab>("kyc");
   const [rows, setRows]         = useState<PendingUser[]>([]);
   const [busyId, setBusyId]     = useState<string | null>(null);
   const [error, setError]       = useState<string | null>(null);
@@ -278,7 +400,7 @@ export default function ApprovalsPage() {
     <>
       <PageHeader
         title="Approvals"
-        description="New registrations waiting for review. Click Review to inspect KYC documents before deciding."
+        description="Review pending KYC submissions and account deletion requests."
         breadcrumb={[
           { label: "Admin", href: "/admin" },
           { label: "Approvals" },
@@ -292,17 +414,41 @@ export default function ApprovalsPage() {
           ) : null
         }
       />
-      {error ? <p className="text-sm text-[var(--rd-error)] mb-4">{error}</p> : null}
-      <DataTable columns={columns} rows={rows} emptyText="No pending registrations." />
 
-      {reviewing && (
-        <KycReviewModal
-          user={reviewing}
-          onClose={() => setReviewing(null)}
-          onDecide={decide}
-          busyId={busyId}
-        />
+      {/* Tabs */}
+      <div className="flex gap-1 mb-6 border-b border-[var(--rd-line)]">
+        {([ ["kyc", "KYC Submissions"], ["deletions", "Account Deletions"] ] as [Tab, string][]).map(([key, label]) => (
+          <button
+            key={key}
+            onClick={() => setTab(key)}
+            className={[
+              "px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-px",
+              tab === key
+                ? "border-[var(--rd-primary)] text-[var(--rd-primary)]"
+                : "border-transparent text-[var(--rd-ink-muted)] hover:text-[var(--rd-ink)]",
+            ].join(" ")}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {tab === "kyc" && (
+        <>
+          {error && <p className="text-sm text-[var(--rd-error)] mb-4">{error}</p>}
+          <DataTable columns={columns} rows={rows} emptyText="No pending registrations." />
+          {reviewing && (
+            <KycReviewModal
+              user={reviewing}
+              onClose={() => setReviewing(null)}
+              onDecide={decide}
+              busyId={busyId}
+            />
+          )}
+        </>
       )}
+
+      {tab === "deletions" && <DeletionSection />}
     </>
   );
 }

@@ -110,6 +110,12 @@ const NAV: Record<string, NavGroup[]> = {
       ],
     },
     {
+      group: "ACCOUNT",
+      items: [
+        { href: "/investor/kyc", label: "KYC Verification", icon: <ShieldIco /> },
+      ],
+    },
+    {
       group: "SETTINGS",
       items: [
         {

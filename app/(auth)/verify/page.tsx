@@ -16,6 +16,9 @@ function VerifyForm() {
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
 
+  const [resending, setResending] = useState(false);
+  const [resent, setResent] = useState(false);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
@@ -34,6 +37,24 @@ function VerifyForm() {
       setError(err instanceof Error ? err.message : "Verification failed");
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function handleResend() {
+    setResending(true);
+    setResent(false);
+    setError(null);
+    try {
+      await fetch(`${API}/auth/resend-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      setResent(true);
+    } catch {
+      setError("Could not resend the code. Please try again.");
+    } finally {
+      setResending(false);
     }
   }
 
@@ -76,8 +97,8 @@ function VerifyForm() {
   return (
     <main className="min-h-screen bg-[var(--rd-surface)] flex items-center justify-center px-4">
       <div className="w-full max-w-sm border border-[var(--rd-line)] bg-[var(--rd-panel)] p-8">
-        <Link href="/" className="font-semibold tracking-tight text-lg text-[var(--rd-ink)]">
-          RYDORA
+        <Link href="/">
+          <img src="/images/Logo origin.png" alt="Rydora" className="h-8 w-8 object-contain" />
         </Link>
         <h1 className="mt-6 text-lg font-medium text-[var(--rd-ink)]">Verify your email</h1>
         <p className="text-sm text-[var(--rd-ink-muted)] mt-1 leading-relaxed">
@@ -114,12 +135,21 @@ function VerifyForm() {
             {busy ? "Verifying…" : "Verify email"}
           </button>
 
-          <p className="text-xs text-[var(--rd-ink-muted)]">
+          <div className="text-xs text-[var(--rd-ink-muted)] text-center">
             Didn&apos;t receive the code?{" "}
-            <Link href="/register" className="text-[var(--rd-primary)] hover:underline">
-              Go back and try again
-            </Link>
-          </p>
+            {resent ? (
+              <span className="text-emerald-600 font-medium">Code sent — check your inbox.</span>
+            ) : (
+              <button
+                type="button"
+                onClick={handleResend}
+                disabled={resending || !email}
+                className="text-[var(--rd-primary)] hover:underline disabled:opacity-50"
+              >
+                {resending ? "Sending…" : "Resend code"}
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </main>
