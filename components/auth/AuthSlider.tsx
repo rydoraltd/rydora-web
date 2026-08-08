@@ -17,7 +17,7 @@ const slides = [
     image:
       "/images/driver.avif",
     quote:
-      "At Rydora, every vehicle is more than transportation — it’s an opportunity to create value, generate returns, and drive progress.",
+      "At Rydora, every vehicle is more than transportation — it’s an opportunity to create value, generate returns, and drive progress",
   },
   {
     // Clean modern sedan — investors hero
