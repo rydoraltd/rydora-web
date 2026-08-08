@@ -142,6 +142,60 @@ export default function ContactPage() {
                     </p>
                   </div>
                 ))}
+                <div className="py-8 border-t" style={{ borderColor: "var(--line-subtle)" }}>
+                  <p
+                    className="text-xs font-semibold uppercase tracking-widest mb-2"
+                    style={{
+                      fontFamily: "var(--font-data)",
+                      color: "var(--ink-muted)",
+                    }}
+                  >
+                    Headquarters address
+                  </p>
+                  <p
+                    className="text-xl font-bold mb-1"
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      color: "var(--brand-primary)",
+                    }}
+                  >
+                    3rd Floor Admiralty Mall, by Admiralty Road, Lekki Phase 1, Lagos State. Nigeria.
+                  </p>
+                </div>
+
+                <div className="py-8 border-t" style={{ borderColor: "var(--line-subtle)" }}>
+                  <p
+                    className="text-xs font-semibold uppercase tracking-widest mb-2"
+                    style={{
+                      fontFamily: "var(--font-data)",
+                      color: "var(--ink-muted)",
+                    }}
+                  >
+                    WhatsApp
+                  </p>
+                  <a
+                    href="https://wa.me/2348152399949"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xl font-bold block mb-1 transition-colors duration-150 hover:opacity-70"
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      color: "var(--brand-primary)",
+                    }}
+                  >
+                    +234 815 239 9949
+                  </a>
+                  <p
+                    className="text-sm"
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      color: "var(--ink-muted)",
+                    }}
+                  >
+                    Tap to chat with us directly on WhatsApp.
+                  </p>
+                </div>
+
                 <div
                   className="border-t"
                   style={{ borderColor: "var(--line-subtle)" }}

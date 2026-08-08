@@ -303,6 +303,214 @@ export default function InvestorsPage() {
         </div>
       </section>
 
+      {/* Investment projection */}
+      <section
+        style={{ backgroundColor: "var(--surface-base)" }}
+        className="py-28 lg:py-36"
+        aria-label="Investment and financial projection"
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="max-w-3xl mb-12">
+            <p
+              className="text-xs font-semibold uppercase tracking-[0.2em] mb-6"
+              style={{
+                fontFamily: "var(--font-data)",
+                color: "var(--brand-primary)",
+              }}
+            >
+              Investment & financial projection
+            </p>
+            <h2
+              className="text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight"
+              style={{
+                fontFamily: "var(--font-display)",
+                color: "var(--ink-strong)",
+              }}
+            >
+              Turn vehicle ownership into a professionally managed income asset.
+            </h2>
+            <p
+              className="text-base leading-relaxed mt-6"
+              style={{
+                fontFamily: "var(--font-body)",
+                color: "var(--ink-body)",
+              }}
+            >
+              Rydora combines fleet management, technology, driver operations,
+              revenue monitoring and asset protection to create a structured
+              mobility investment opportunity with recurring income potential.
+            </p>
+          </div>
+
+          <div
+            className="rounded-3xl p-8 lg:p-10"
+            style={{
+              backgroundColor: "var(--surface-raised)",
+              border: "1px solid var(--line-subtle)",
+            }}
+          >
+            <p
+              className="text-sm font-semibold uppercase tracking-[0.2em] mb-6"
+              style={{
+                fontFamily: "var(--font-data)",
+                color: "var(--ink-muted)",
+              }}
+            >
+              Estimated returns over 12 months
+            </p>
+
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse">
+                <thead>
+                  <tr>
+                    <th
+                      className="text-left text-sm font-semibold pb-4"
+                      style={{
+                        fontFamily: "var(--font-data)",
+                        color: "var(--ink-muted)",
+                      }}
+                    >
+                      Vehicle units
+                    </th>
+                    <th
+                      className="text-left text-sm font-semibold pb-4"
+                      style={{
+                        fontFamily: "var(--font-data)",
+                        color: "var(--ink-muted)",
+                      }}
+                    >
+                      Estimated investment
+                    </th>
+                    <th
+                      className="text-left text-sm font-semibold pb-4"
+                      style={{
+                        fontFamily: "var(--font-data)",
+                        color: "var(--ink-muted)",
+                      }}
+                    >
+                      Monthly return
+                    </th>
+                    <th
+                      className="text-left text-sm font-semibold pb-4"
+                      style={{
+                        fontFamily: "var(--font-data)",
+                        color: "var(--ink-muted)",
+                      }}
+                    >
+                      Annual return
+                    </th>
+                    <th
+                      className="text-left text-sm font-semibold pb-4"
+                      style={{
+                        fontFamily: "var(--font-data)",
+                        color: "var(--ink-muted)",
+                      }}
+                    >
+                      Est. ROI
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { units: "1 Car", investment: "₦10M – ₦12M", monthly: "₦166,667 – ₦250,000", annual: "₦2M – ₦3M", roi: "20% – 25%" },
+                    { units: "3 Cars", investment: "₦30M – ₦36M", monthly: "₦500,000 – ₦750,000", annual: "₦6M – ₦9M", roi: "20% – 25%" },
+                    { units: "5 Cars", investment: "₦50M – ₦60M", monthly: "₦833,333 – ₦1.25M", annual: "₦10M – ₦15M", roi: "20% – 25%" },
+                    { units: "10 Cars", investment: "₦100M – ₦120M", monthly: "₦1.67M – ₦2.50M", annual: "₦20M – ₦30M", roi: "20% – 25%" },
+                    { units: "15 Cars", investment: "₦150M – ₦180M", monthly: "₦2.50M – ₦3.75M", annual: "₦30M – ₦45M", roi: "20% – 25%" },
+                  ].map((row) => (
+                    <tr key={row.units} className="border-t" style={{ borderColor: "var(--line-subtle)" }}>
+                      <td className="py-4 pr-4 text-base font-semibold" style={{ fontFamily: "var(--font-body)", color: "var(--ink-strong)" }}>{row.units}</td>
+                      <td className="py-4 pr-4 text-base" style={{ fontFamily: "var(--font-body)", color: "var(--ink-body)" }}>{row.investment}</td>
+                      <td className="py-4 pr-4 text-base" style={{ fontFamily: "var(--font-body)", color: "var(--ink-body)" }}>{row.monthly}</td>
+                      <td className="py-4 pr-4 text-base" style={{ fontFamily: "var(--font-body)", color: "var(--ink-body)" }}>{row.annual}</td>
+                      <td className="py-4 text-base font-semibold" style={{ fontFamily: "var(--font-body)", color: "var(--brand-primary)" }}>{row.roi}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div>
+                <h3
+                  className="text-xl font-bold mb-4"
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    color: "var(--ink-strong)",
+                  }}
+                >
+                  How it works
+                </h3>
+                <p
+                  className="text-base leading-relaxed"
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    color: "var(--ink-body)",
+                  }}
+                >
+                  Invest → Deploy → Manage → Generate Revenue → Earn Returns
+                </p>
+                <p
+                  className="text-base leading-relaxed mt-4"
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    color: "var(--ink-body)",
+                  }}
+                >
+                  Each vehicle is integrated into Rydora&apos;s mobility ecosystem
+                  and professionally managed through driver allocation,
+                  operational monitoring, revenue tracking, maintenance
+                  coordination and performance management.
+                </p>
+              </div>
+
+              <div>
+                <h3
+                  className="text-xl font-bold mb-4"
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    color: "var(--ink-strong)",
+                  }}
+                >
+                  Built for sustainable growth
+                </h3>
+                <ul className="space-y-3 text-base leading-relaxed" style={{ color: "var(--ink-body)" }}>
+                  <li>• Professional fleet management</li>
+                  <li>• Driver recruitment & management</li>
+                  <li>• Revenue & performance monitoring</li>
+                  <li>• Vehicle maintenance & asset protection</li>
+                  <li>• Transparent reporting</li>
+                  <li>• Technology-driven operations</li>
+                  <li>• Structured investor payouts</li>
+                </ul>
+              </div>
+            </div>
+
+            <blockquote
+              className="mt-10 border-l-4 pl-5 text-lg font-semibold"
+              style={{
+                borderColor: "var(--brand-primary)",
+                color: "var(--ink-strong)",
+              }}
+            >
+              One vehicle can become an income-generating asset. A fleet can become a scalable mobility portfolio.
+            </blockquote>
+
+            <p
+              className="mt-6 text-sm leading-relaxed"
+              style={{
+                fontFamily: "var(--font-body)",
+                color: "var(--ink-muted)",
+              }}
+            >
+              Financial projections are estimates and are not guaranteed returns.
+              Actual performance may vary based on vehicle utilization, operating
+              costs, market conditions, maintenance and other factors.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section
         style={{ backgroundColor: "var(--surface-base)" }}
