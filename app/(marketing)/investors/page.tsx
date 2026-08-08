@@ -8,6 +8,54 @@ export const metadata: Metadata = {
     "Put your vehicles to work. Rydora manages your fleet, assigns vetted drivers and gives you full earnings visibility every month.",
 };
 
+const tiers = [
+  {
+    units: "1 Car",
+    investment: "₦10M – ₦12M",
+    monthly: "₦166,667 – ₦250,000",
+    annual: "₦2M – ₦3M",
+    roi: "20% – 25%",
+  },
+  {
+    units: "3 Cars",
+    investment: "₦30M – ₦36M",
+    monthly: "₦500,000 – ₦750,000",
+    annual: "₦6M – ₦9M",
+    roi: "20% – 25%",
+  },
+  {
+    units: "5 Cars",
+    investment: "₦50M – ₦60M",
+    monthly: "₦833,333 – ₦1.25M",
+    annual: "₦10M – ₦15M",
+    roi: "20% – 25%",
+  },
+  {
+    units: "10 Cars",
+    investment: "₦100M – ₦120M",
+    monthly: "₦1.67M – ₦2.50M",
+    annual: "₦20M – ₦30M",
+    roi: "20% – 25%",
+  },
+  {
+    units: "15 Cars",
+    investment: "₦150M – ₦180M",
+    monthly: "₦2.50M – ₦3.75M",
+    annual: "₦30M – ₦45M",
+    roi: "20% – 25%",
+  },
+];
+
+const pillars = [
+  "Professional Fleet Management",
+  "Driver Recruitment & Management",
+  "Revenue & Performance Monitoring",
+  "Vehicle Maintenance & Asset Protection",
+  "Transparent Reporting",
+  "Technology-Driven Operations",
+  "Structured Investor Payouts",
+];
+
 const steps = [
   {
     id: "01",
@@ -118,6 +166,196 @@ export default function InvestorsPage() {
         </div>
       </section>
 
+      {/* Investment tiers */}
+      <section
+        id="investment"
+        style={{ backgroundColor: "var(--surface-base)" }}
+        className="py-28 lg:py-36"
+        aria-label="Investment and financial projection"
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="max-w-xl mb-6">
+            <p
+              className="text-xs font-semibold uppercase tracking-[0.2em] mb-6"
+              style={{
+                fontFamily: "var(--font-data)",
+                color: "var(--brand-primary)",
+              }}
+            >
+              Investment & Financial Projection
+            </p>
+            <h2
+              className="text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight"
+              style={{
+                fontFamily: "var(--font-display)",
+                color: "var(--ink-strong)",
+              }}
+            >
+              ₦10M – ₦12M per vehicle.
+            </h2>
+            <p
+              className="text-base leading-relaxed mt-4"
+              style={{
+                fontFamily: "var(--font-body)",
+                color: "var(--ink-body)",
+              }}
+            >
+              Projections are based on an estimated{" "}
+              <strong>20% – 25% annual ROI</strong> over a 12-month period,
+              depending on vehicle performance, operational conditions, and the
+              selected investment structure.
+            </p>
+          </div>
+
+          {/* Table — desktop */}
+          <div className="mt-12 overflow-x-auto hidden lg:block">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr
+                  style={{ borderBottom: "2px solid var(--line-subtle)" }}
+                >
+                  {["Vehicle Units", "Estimated Investment", "Monthly Return", "Annual Return", "Estimated ROI – 12 Months"].map(
+                    (h) => (
+                      <th
+                        key={h}
+                        className="text-left pb-4 pr-8 text-xs font-semibold uppercase tracking-[0.12em]"
+                        style={{
+                          fontFamily: "var(--font-data)",
+                          color: "var(--ink-muted)",
+                        }}
+                      >
+                        {h}
+                      </th>
+                    )
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {tiers.map((tier) => (
+                  <tr
+                    key={tier.units}
+                    className="border-b"
+                    style={{ borderColor: "var(--line-subtle)" }}
+                  >
+                    <td
+                      className="py-5 pr-8 font-bold"
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        color: "var(--ink-strong)",
+                      }}
+                    >
+                      {tier.units}
+                    </td>
+                    <td
+                      className="py-5 pr-8"
+                      style={{
+                        fontFamily: "var(--font-data)",
+                        color: "var(--ink-body)",
+                      }}
+                    >
+                      {tier.investment}
+                    </td>
+                    <td
+                      className="py-5 pr-8"
+                      style={{
+                        fontFamily: "var(--font-data)",
+                        color: "var(--ink-body)",
+                      }}
+                    >
+                      {tier.monthly}
+                    </td>
+                    <td
+                      className="py-5 pr-8"
+                      style={{
+                        fontFamily: "var(--font-data)",
+                        color: "var(--ink-body)",
+                      }}
+                    >
+                      {tier.annual}
+                    </td>
+                    <td
+                      className="py-5 font-bold"
+                      style={{
+                        fontFamily: "var(--font-data)",
+                        color: "var(--state-success)",
+                      }}
+                    >
+                      {tier.roi}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Cards — mobile */}
+          <div className="mt-8 flex flex-col gap-4 lg:hidden">
+            {tiers.map((tier) => (
+              <div
+                key={tier.units}
+                className="rounded-2xl p-6"
+                style={{ backgroundColor: "var(--surface-raised)" }}
+              >
+                <p
+                  className="font-bold text-base mb-4"
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    color: "var(--ink-strong)",
+                  }}
+                >
+                  {tier.units}
+                </p>
+                {[
+                  { label: "Investment", value: tier.investment },
+                  { label: "Monthly Return", value: tier.monthly },
+                  { label: "Annual Return", value: tier.annual },
+                  { label: "Estimated ROI", value: tier.roi, highlight: true },
+                ].map((row) => (
+                  <div
+                    key={row.label}
+                    className="flex justify-between items-center py-2 border-b last:border-b-0"
+                    style={{ borderColor: "var(--line-subtle)" }}
+                  >
+                    <span
+                      className="text-sm"
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        color: "var(--ink-muted)",
+                      }}
+                    >
+                      {row.label}
+                    </span>
+                    <span
+                      className="text-sm font-semibold"
+                      style={{
+                        fontFamily: "var(--font-data)",
+                        color: row.highlight
+                          ? "var(--state-success)"
+                          : "var(--ink-strong)",
+                      }}
+                    >
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <p
+            className="text-xs mt-8 max-w-2xl"
+            style={{
+              fontFamily: "var(--font-body)",
+              color: "var(--ink-muted)",
+            }}
+          >
+            Financial projections are estimates and are not guaranteed returns.
+            Actual performance may vary based on vehicle utilization, operating
+            costs, market conditions, maintenance, and other factors.
+          </p>
+        </div>
+      </section>
+
       {/* How it works */}
       <section
         id="how-it-works"
@@ -193,6 +431,79 @@ export default function InvestorsPage() {
               className="border-t"
               style={{ borderColor: "var(--line-subtle)" }}
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Built for sustainable growth */}
+      <section
+        id="services"
+        style={{ backgroundColor: "var(--surface-raised)" }}
+        className="py-28 lg:py-36"
+        aria-label="Built for sustainable growth"
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div>
+              <p
+                className="text-xs font-semibold uppercase tracking-[0.2em] mb-6"
+                style={{
+                  fontFamily: "var(--font-data)",
+                  color: "var(--brand-primary)",
+                }}
+              >
+                Built for Sustainable Growth
+              </p>
+              <h2
+                className="text-4xl lg:text-5xl font-black leading-[1.05] tracking-tight mb-6"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  color: "var(--ink-strong)",
+                }}
+              >
+                One vehicle can become an income-generating asset.
+              </h2>
+              <p
+                className="text-base leading-relaxed"
+                style={{
+                  fontFamily: "var(--font-body)",
+                  color: "var(--ink-body)",
+                }}
+              >
+                Rather than simply placing capital into a vehicle, Rydora
+                provides a structured system designed to maximise the productive
+                use of each mobility asset. A fleet can become a scalable
+                mobility portfolio.
+              </p>
+            </div>
+            <div className="flex flex-col gap-0">
+              {pillars.map((pillar, i) => (
+                <div
+                  key={pillar}
+                  className="flex items-center gap-5 py-5 border-b first:border-t"
+                  style={{ borderColor: "var(--line-subtle)" }}
+                >
+                  <span
+                    className="text-xs font-bold w-6 shrink-0"
+                    style={{
+                      fontFamily: "var(--font-data)",
+                      color: "var(--ink-muted)",
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className="text-base font-semibold"
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      color: "var(--ink-strong)",
+                    }}
+                  >
+                    {pillar}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -404,6 +715,15 @@ export default function InvestorsPage() {
           >
             Register your vehicle
           </Link>
+          <p
+            className="text-sm mt-10"
+            style={{
+              fontFamily: "var(--font-body)",
+              color: "rgba(242,243,241,0.45)",
+            }}
+          >
+            3rd Floor, Admiralty Mall, Admiralty Road, Lekki Phase 1, Lagos
+          </p>
         </div>
       </section>
     </>
