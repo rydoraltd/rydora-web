@@ -139,11 +139,7 @@ function RegisterForm() {
 
         <div className="relative z-10">
           <blockquote className="text-white/90 text-xl font-medium leading-relaxed max-w-sm">
-<<<<<<< HEAD
-            &ldquo;At Rydora, every vehicle is more than transportation — it&rsquo;s an opportunity to create value, generate returns, and drive progress.&rdquo;
-=======
             &ldquo;At Rydora, every vehicle is more than transportation, it’s an opportunity to create value, generate returns, and drive progress&rdquo;
->>>>>>> 9dd5f3be4ded1643a2398fb9ccd851ffdf6d4572
           </blockquote>
           <div className="flex gap-2 mt-6">
             <span className="w-5 h-1 rounded-full bg-white/25" />
@@ -234,7 +230,7 @@ function RegisterForm() {
                   <select
                     value={countryCode}
                     onChange={(e) => setCountryCode(e.target.value)}
-                    className="rounded-lg px-2 py-3 text-sm text-[var(--rd-ink)] focus:outline-none w-21 shrink-0"
+                    className="rounded-lg px-2 py-3 text-sm text-[var(--rd-ink)] focus:outline-none w-20 shrink-0"
                     style={{ background: "#f0f4fb", border: "1.5px solid transparent" }}
                     onFocus={focusIn}
                     onBlur={focusOut}
