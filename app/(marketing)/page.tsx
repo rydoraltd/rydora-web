@@ -348,7 +348,7 @@ export default function HomePage() {
                     color: "var(--ink-strong)",
                   }}
                 >
-                  &#8358;248,000
+                  &#8358;480,000
                 </p>
                 <p
                   className="text-sm mt-1"

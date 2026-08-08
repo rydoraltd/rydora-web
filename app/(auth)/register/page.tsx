@@ -230,7 +230,7 @@ function RegisterForm() {
                   <select
                     value={countryCode}
                     onChange={(e) => setCountryCode(e.target.value)}
-                    className="rounded-lg px-2 py-3 text-sm text-[var(--rd-ink)] focus:outline-none w-20 shrink-0"
+                    className="rounded-lg px-2 py-3 text-sm text-[var(--rd-ink)] focus:outline-none w-25 shrink-0"
                     style={{ background: "#f0f4fb", border: "1.5px solid transparent" }}
                     onFocus={focusIn}
                     onBlur={focusOut}
