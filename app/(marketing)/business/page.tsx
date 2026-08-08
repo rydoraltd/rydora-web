@@ -334,7 +334,7 @@ export default function BusinessPage() {
                 className="text-xs font-semibold uppercase tracking-widest mb-6"
                 style={{
                   fontFamily: "var(--font-data)",
-                  color: "var(--ink-strong)",
+                  color: "var(--ink-white)",
                 }}
               >
                 Monthly report summary
@@ -364,7 +364,7 @@ export default function BusinessPage() {
                     className="text-sm font-bold"
                     style={{
                       fontFamily: "var(--font-data)",
-                      color: "var(--ink-on-dark)",
+                      color: "var(--ink-white)",
                     }}
                   >
                     {row.value}
