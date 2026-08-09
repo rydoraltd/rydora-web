@@ -61,10 +61,10 @@ export default function Nav() {
           {/* Logo */}
           <Link href="/" aria-label="Rydora home">
             <Image
-              src={light ? "/images/Logo origin.png" : "/images/Logo white.png"}
+              src={light ? "/images/rydora-nav.png" : "/images/rydora-footer.png"}
               alt="Rydora"
-              height={50}
-              width={50}
+              height={120}
+              width={120}
               className="object-contain"
               priority
             />

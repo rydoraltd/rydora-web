@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Nav from "@/components/marketing/Nav";
 import Footer from "@/components/marketing/Footer";
+import PageLoader from "@/components/marketing/PageLoader";
 
 export const metadata: Metadata = {
   title: {
@@ -28,6 +29,7 @@ export default function MarketingLayout({
         color: "var(--ink-body)",
       }}
     >
+      <PageLoader />
       <Nav />
       <main className="flex-1">{children}</main>
       <Footer />

@@ -51,10 +51,10 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="mb-4">
               <Image
-                src="/images/Logo white.png"
+                src="/images/rydora-footer.png"
                 alt="Rydora"
-                height={36}
-                width={36}
+                height={120}
+                width={120}
                 className="object-contain"
               />
             </div>
