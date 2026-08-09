@@ -131,12 +131,12 @@ function RegisterForm() {
       <AuthSlider className="lg:w-[42%]" />
 
       {/* Right panel — scrollable form */}
-      <div className="flex-1 flex flex-col justify-center px-8 lg:px-14 py-12 bg-white overflow-y-auto">
+      <div className="flex-1 flex flex-col justify-center px-8 lg:px-14 lg:pt-64 py-12 bg-white overflow-y-auto">
         <div className="w-full max-w-lg mx-auto">
           {/* Logo — links to home */}
           <div className="mb-6">
             <Link href="/">
-              <Image src="/images/Logo origin.png" alt="Rydora" height={34} width={34} className="object-contain" />
+              <Image src="/images/rydora-nav.png" alt="Rydora" height={120} width={120} className="object-contain" />
             </Link>
           </div>
 
