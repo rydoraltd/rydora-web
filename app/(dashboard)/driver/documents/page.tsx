@@ -124,7 +124,7 @@ export default function DriverDocumentsPage() {
           <h2 className="text-sm font-semibold text-[var(--rd-ink)]">Document Status</h2>
         </div>
         <div className="divide-y divide-[var(--rd-line)]">
-          {(data?.documents ?? Object.entries(DOC_LABELS).map(([name, label]) => ({ name, label, status: "missing" as const }))).map((doc) => (
+          {(data?.documents ?? Object.entries(DOC_LABELS).map(([name, label]) => ({ name, label, status: "missing" as const })) as KycDoc[]).map((doc) => (
             <div key={doc.name} className="flex items-center gap-4 px-5 py-4">
               <DocIcon status={doc.status} />
               <div className="flex-1 min-w-0">
