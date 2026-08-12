@@ -103,7 +103,7 @@ export default function DriverDocumentsPage() {
         }
       />
 
-      {error && <p className="text-sm text-[var(--rd-error)] mb-4">{error}</p>}
+      {error && <p className="text-sm text-(--rd-error) mb-4">{error}</p>}
 
       {/* Summary bar */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -112,28 +112,28 @@ export default function DriverDocumentsPage() {
           { label: "Verified",       value: `${verified} / ${total}` },
           { label: "Pending Review", value: String(data?.documents.filter((d) => d.status === "pending").length ?? 0) },
         ].map(({ label, value }) => (
-          <div key={label} className="bg-[var(--rd-panel)] border border-[var(--rd-line)] rounded-xl p-4 shadow-[var(--rd-shadow-sm)]">
-            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--rd-ink-muted)]">{label}</p>
-            <p className="mt-1.5 text-lg font-bold text-[var(--rd-ink)] capitalize">{value}</p>
+          <div key={label} className="bg-(--rd-panel) border border-(--rd-line) rounded-xl p-4 shadow-(--rd-shadow-sm)">
+            <p className="text-xs font-semibold uppercase tracking-wider text-(--rd-ink-muted)">{label}</p>
+            <p className="mt-1.5 text-lg font-bold text-(--rd-ink) capitalize">{value}</p>
           </div>
         ))}
       </div>
 
-      <div className="bg-[var(--rd-panel)] border border-[var(--rd-line)] rounded-xl shadow-[var(--rd-shadow-sm)] overflow-hidden">
-        <div className="px-5 py-4 border-b border-[var(--rd-line)]">
-          <h2 className="text-sm font-semibold text-[var(--rd-ink)]">Document Status</h2>
+      <div className="bg-(--rd-panel) border border-(--rd-line) rounded-xl shadow-(--rd-shadow-sm) overflow-hidden">
+        <div className="px-5 py-4 border-b border-(--rd-line)">
+          <h2 className="text-sm font-semibold text-(--rd-ink)">Document Status</h2>
         </div>
-        <div className="divide-y divide-[var(--rd-line)]">
+        <div className="divide-y divide-(--rd-line)">
           {(data?.documents ?? Object.entries(DOC_LABELS).map(([name, label]): KycDoc => ({ name, label, status: "missing" }))).map((doc) => (
             <div key={doc.name} className="flex items-center gap-4 px-5 py-4">
               <DocIcon status={doc.status} />
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-[var(--rd-ink)]">{doc.label}</p>
+                <p className="text-sm font-medium text-(--rd-ink)">{doc.label}</p>
                 {doc.uploadedAt && (
-                  <p className="text-xs text-[var(--rd-ink-muted)] mt-0.5">Uploaded {shortDate(doc.uploadedAt)}</p>
+                  <p className="text-xs text-(--rd-ink-muted) mt-0.5">Uploaded {shortDate(doc.uploadedAt)}</p>
                 )}
                 {doc.note && (
-                  <p className="text-xs text-[var(--rd-error)] mt-0.5">{doc.note}</p>
+                  <p className="text-xs text-(--rd-error) mt-0.5">{doc.note}</p>
                 )}
               </div>
               <StatusBadge status={doc.status} />
