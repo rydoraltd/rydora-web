@@ -6,6 +6,8 @@ const footerLinks = {
     label: "Company",
     links: [
       { href: "/about", label: "About Rydora" },
+      { href: "/terms", label: "Terms & Conditions" },
+      { href: "/privacy", label: "Privacy Policy" },
       { href: "/contact", label: "Contact" },
     ],
   },

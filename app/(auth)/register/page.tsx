@@ -297,9 +297,14 @@ function RegisterForm() {
               />
               <span className="text-sm text-[var(--rd-ink-muted)]">
                 I agree to all{" "}
-                <span className="text-[var(--rd-primary)] font-medium">Terms &amp; conditions</span>{" "}
+                <Link href="/terms" className="text-[var(--rd-primary)] font-medium">
+                  Terms &amp; conditions
+                </Link>{" "}
                 and the{" "}
-                <span className="text-[var(--rd-primary)] font-medium">privacy policy</span>.
+                <Link href="/privacy" className="text-[var(--rd-primary)] font-medium">
+                  privacy policy
+                </Link>
+                .
               </span>
             </label>
 
