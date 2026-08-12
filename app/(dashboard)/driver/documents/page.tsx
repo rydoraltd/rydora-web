@@ -59,8 +59,8 @@ function DocIcon({ status }: { status: string }) {
     );
   }
   return (
-    <div className="w-9 h-9 rounded-xl bg-[var(--rd-surface)] border-2 border-dashed border-[var(--rd-line)] flex items-center justify-center shrink-0">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-[var(--rd-ink-muted)]/50"><path d="M12 5v14M5 12h14" /></svg>
+    <div className="w-9 h-9 rounded-xl bg-(--rd-surface) border-2 border-dashed border-(--rd-line) flex items-center justify-center shrink-0">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-(--rd-ink-muted)/50"><path d="M12 5v14M5 12h14" /></svg>
     </div>
   );
 }
@@ -95,7 +95,7 @@ export default function DriverDocumentsPage() {
         action={
           <Link
             href="/driver/kyc"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-[var(--rd-primary)] hover:bg-[var(--rd-primary-strong)] transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-(--rd-primary) hover:bg-(--rd-primary-strong) transition-colors"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
             Update Documents
@@ -124,7 +124,7 @@ export default function DriverDocumentsPage() {
           <h2 className="text-sm font-semibold text-[var(--rd-ink)]">Document Status</h2>
         </div>
         <div className="divide-y divide-[var(--rd-line)]">
-          {(data?.documents ?? Object.entries(DOC_LABELS).map(([name, label]) => ({ name, label, status: "missing" as const }))).map((doc) => (
+          {(data?.documents ?? Object.entries(DOC_LABELS).map(([name, label]): KycDoc => ({ name, label, status: "missing" }))).map((doc) => (
             <div key={doc.name} className="flex items-center gap-4 px-5 py-4">
               <DocIcon status={doc.status} />
               <div className="flex-1 min-w-0">
