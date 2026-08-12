@@ -18,8 +18,8 @@ export default function PrivacyPolicyPage() {
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0"
-            alt="Secure digital privacy"
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0"
+            alt="Automotive garage with vehicles and equipment"
             fill
             priority
             className="object-cover object-center"

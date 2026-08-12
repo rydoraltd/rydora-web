@@ -18,8 +18,8 @@ export default function TermsPage() {
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0"
-            alt="Corporate terms and conditions"
+            src="https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0"
+            alt="Vehicle inspection in a garage setting"
             fill
             priority
             className="object-cover object-center"

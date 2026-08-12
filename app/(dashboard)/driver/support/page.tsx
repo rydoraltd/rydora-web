@@ -157,11 +157,11 @@ export default function DriverSupportPage() {
             <p className="text-xs font-semibold uppercase tracking-wide opacity-70">Direct Contact</p>
             <div>
               <p className="text-xs opacity-60 mb-0.5">WhatsApp Operations</p>
-              <p className="text-sm font-medium">+234 000 000 0000</p>
+              <p className="text-sm font-medium">+234 815 239 9949</p>
             </div>
             <div>
               <p className="text-xs opacity-60 mb-0.5">Email</p>
-              <p className="text-sm font-medium">operations@rydora.ng</p>
+              <p className="text-sm font-medium">info@rydora.ng</p>
             </div>
             <div>
               <p className="text-xs opacity-60 mb-0.5">Hours</p>
