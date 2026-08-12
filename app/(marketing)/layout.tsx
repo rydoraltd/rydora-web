@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Nav from "@/components/marketing/Nav";
 import Footer from "@/components/marketing/Footer";
 import PageLoader from "@/components/marketing/PageLoader";
+import CookieBanner from "@/components/marketing/CookieBanner";
 
 export const metadata: Metadata = {
   title: {
@@ -33,6 +34,7 @@ export default function MarketingLayout({
       <Nav />
       <main className="flex-1">{children}</main>
       <Footer />
+      <CookieBanner />
     </div>
   );
 }

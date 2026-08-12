@@ -27,6 +27,14 @@ const footerLinks = {
       { href: "/drivers#support", label: "Driver support" },
     ],
   },
+  riders: {
+    label: "For riders",
+    links: [
+      { href: "/riders", label: "Book a ride" },
+      { href: "/riders#book", label: "Ride services" },
+      { href: "/riders#book", label: "Airport transfers" },
+    ],
+  },
   business: {
     label: "For business",
     links: [

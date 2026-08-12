@@ -166,6 +166,12 @@ const NAV: Record<string, NavGroup[]> = {
       ],
     },
     {
+      group: "DATA",
+      items: [
+        { href: "/admin/cookie-consents", label: "Cookie Consents", icon: <GearIco /> },
+      ],
+    },
+    {
       group: "SETTINGS",
       items: [
         {
@@ -205,8 +211,9 @@ const NAV: Record<string, NavGroup[]> = {
     {
       group: "ADMIN ONLY",
       items: [
-        { href: "/admin/admins",      label: "Admin Accounts", icon: <ShieldIco /> },
-        { href: "/admin/audit-trail", label: "Audit Trail",    icon: <ClockIco /> },
+        { href: "/admin/admins",           label: "Admin Accounts",  icon: <ShieldIco /> },
+        { href: "/admin/audit-trail",      label: "Audit Trail",     icon: <ClockIco /> },
+        { href: "/admin/cookie-consents",  label: "Cookie Consents", icon: <GearIco /> },
       ],
     },
     {

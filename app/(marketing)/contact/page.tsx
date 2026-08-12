@@ -11,21 +11,21 @@ export const metadata: Metadata = {
 const channels = [
   {
     label: "Email",
-    value: "hello@rydora.africa",
+    value: "rydorateam@rydora.ng",
     detail: "We respond within one business day.",
-    href: "mailto:hello@rydora.africa",
+    href: "mailto:rydorateam@rydora.ng",
   },
   {
     label: "Driver recruitment",
-    value: "drivers@rydora.africa",
+    value: "rydorateam@rydora.ng",
     detail: "For driver applications and questions.",
-    href: "mailto:drivers@rydora.africa",
+    href: "mailto:rydorateam@rydora.ng",
   },
   {
     label: "Fleet enquiries",
-    value: "fleet@rydora.africa",
+    value: "rydorateam@rydora.ng",
     detail: "For corporate and business accounts.",
-    href: "mailto:fleet@rydora.africa",
+    href: "mailto:rydorateam@rydora.ng",
   },
 ];
 
